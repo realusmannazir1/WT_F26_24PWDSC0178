@@ -78,3 +78,363 @@ p::first-letter {
 p::after {
     content: " ✓";
 }
+
+/* Task 2 - Typography Showcase */
+.roboto { font-family: 'Roboto', sans-serif; }
+.poppins { font-family: 'Poppins', sans-serif; }
+.oswald { font-family: 'Oswald', sans-serif; }
+
+.px { font-size: 20px; }
+.em { font-size: 1.5em; }
+.rem { font-size: 1.5rem; }
+
+.center { text-align: center; }
+.uppercase { text-transform: uppercase; }
+.underline { text-decoration: underline; }
+.shadow { font-size: 30px; text-shadow: 3px 3px 5px gray; }
+
+/* Task 3 - Background Gallery */
+div {
+    padding: 40px;
+    margin: 20px;
+    text-align: center;
+}
+
+.solid {
+    background-color: lightblue;
+}
+
+.image {
+    background-image: url("images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #a0c4ff; /* fallback if image missing */
+}
+
+.linear {
+    background: linear-gradient(to right, blue, purple);
+    color: white;
+}
+
+.radial {
+    background: radial-gradient(circle, yellow, orange);
+}
+
+.multiple {
+    background-image:
+        url("images/background.jpg"),
+        linear-gradient(45deg, transparent, white);
+    background-size: cover;
+    background-color: #cce5ff; /* fallback */
+}
+
+.blend {
+    background-image: url("images/background.jpg");
+    background-color: purple;
+    background-blend-mode: multiply;
+    background-size: cover;
+}
+
+/* Task 4 - Image Styling Portfolio */
+.gallery {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.image-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.image-card img {
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border: 3px solid black;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px gray;
+    transition: 0.4s;
+    display: block;
+}
+
+.image-card img:hover {
+    transform: scale(1.08);
+    filter: brightness(70%);
+}
+
+.overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: white;
+    background: black;
+    padding: 8px;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+.circle {
+    border-radius: 50% !important;
+    width: 180px !important;
+    height: 180px !important;
+}
+
+/* Task 5 - Button Styling Collection */
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.small { font-size: 12px; }
+.normal { font-size: 16px; }
+.large { font-size: 22px; }
+
+.round { border-radius: 25px; }
+
+.gradient {
+    background: linear-gradient(to right, blue, purple);
+    color: white;
+    box-shadow: 3px 3px 8px gray;
+}
+
+button:hover { transform: translateY(-3px); }
+
+button:focus { outline: 3px solid lightblue; }
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Task 6 - Form Styling */
+form {
+    width: 350px;
+    margin: auto;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+form input:focus,
+form select:focus {
+    border-color: blue;
+    outline: none;
+}
+
+form input:invalid {
+    border-color: red;
+}
+
+form button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    background: blue;
+    color: white;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background: darkblue;
+    transform: none;
+}
+
+.error { color: red; }
+.success { color: green; }
+
+/* Task 7 - Card Component */
+.card {
+    width: 300px;
+    padding: 20px;
+    margin: 30px auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px gray;
+    transition: 0.3s;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card button {
+    padding: 10px 20px;
+}
+
+/* Task 8 - Navigation Menu */
+nav {
+    display: flex;
+    background: #222;
+}
+
+nav a {
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+    background: #555;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: #333;
+    top: 100%;
+    min-width: 120px;
+    z-index: 10;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    display: block;
+}
+
+@media (max-width: 600px) {
+    nav { flex-direction: column; }
+}
+
+/* Task 9 - CSS Transform Gallery */
+.box {
+    width: 120px;
+    padding: 30px;
+    margin: 30px;
+    background: lightblue;
+    text-align: center;
+    transition: 0.5s;
+    display: inline-block;
+}
+
+.rotate { transform-origin: top left; }
+.rotate:hover { transform: rotate(20deg); }
+.scale:hover { transform: scale(1.3); }
+.translate:hover { transform: translateX(50px); }
+.three-d:hover { transform: rotateY(180deg); }
+.combined:hover { transform: translateX(30px) rotate(15deg) scale(1.2); }
+
+/* Task 10 - Advanced Effects */
+.gradient-text {
+    background: linear-gradient(to right, blue, purple);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    margin: 30px;
+    border: 6px solid #ddd;
+    border-top-color: black;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.clip-text {
+    background: url("images/background.jpg") center/cover;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.shadow-box {
+    width: 200px;
+    padding: 30px;
+    margin: 20px;
+    box-shadow: 5px 5px 10px gray, -5px -5px 10px lightgray;
+}
+
+/* Task 11 - Personal Portfolio */
+header {
+    text-align: center;
+    padding: 40px;
+    background: #222;
+    color: white;
+}
+
+main {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+main img {
+    max-width: 100%;
+    border-radius: 15px;
+}
+
+@media (max-width: 600px) {
+    nav { flex-direction: column; align-items: center; }
+}
+
+/* Task 12 - Course Schedule Table */
+.table-container {
+    overflow-x: auto;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #999;
+    text-align: center;
+}
+
+th {
+    background: #222;
+    color: white;
+}
+
+tr:nth-child(even) { background: #f2f2f2; }
+tr:hover { background: #ddd; }
+
+.web { background: lightblue; }
+.data { background: lightgreen; }
+.algo { background: lightyellow; }
