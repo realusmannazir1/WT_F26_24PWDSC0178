@@ -1,0 +1,80 @@
+/* Basic Selectors */
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    font-size: 18px;
+}
+
+.highlight {
+    color: blue;
+}
+
+#intro {
+    font-weight: bold;
+}
+
+/* Attribute Selectors */
+input[type="text"] {
+    border: 2px solid blue;
+}
+
+input[type="email"] {
+    border: 2px solid green;
+}
+
+a[href^="https"] {
+    color: purple;
+}
+
+/* Combinators */
+div p {
+    color: red;
+}
+
+div > p {
+    background: #eee;
+}
+
+h1 + p {
+    margin-top: 20px;
+}
+
+h1 ~ p {
+    padding: 5px;
+}
+
+/* Pseudo-classes */
+a:hover {
+    color: red;
+}
+
+li:first-child {
+    font-weight: bold;
+}
+
+li:last-child {
+    color: green;
+}
+
+li:nth-child(2) {
+    color: orange;
+}
+
+input:focus {
+    outline: 3px solid lightblue;
+}
+
+/* Pseudo-elements */
+p::first-letter {
+    font-size: 25px;
+}
+
+p::after {
+    content: " ✓";
+}
