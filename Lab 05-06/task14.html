@@ -1,103 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Responsive Data Table</title>
-
+<title>ShopZone – Orders</title>
+<link rel="stylesheet" href="theme.css">
 <style>
-body {
-    margin: 0;
-    padding: 30px;
-    font-family: Arial, sans-serif;
-}
+  .filter-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .filter-tab { padding: 8px 18px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg2); color: var(--text2); font-size: 0.85rem; cursor: pointer; transition: background 0.2s, color 0.2s; }
+  .filter-tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+  .filter-tab:hover:not(.active) { background: var(--bg3); }
 
-.table-container {
-    max-width: 1000px;
-    margin: auto;
-    overflow-x: auto;
-}
+  .search-input { display: flex; align-items: center; gap: 8px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 8px 14px; margin-left: auto; }
+  .search-input input { background: none; border: none; outline: none; color: var(--text); font-size: 0.85rem; width: 180px; }
+  .search-input input::placeholder { color: var(--text3); }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 650px;
-}
+  .order-product { display: flex; align-items: center; gap: 10px; }
+  .order-product img { width: 38px; height: 38px; border-radius: 8px; object-fit: cover; }
+  .order-product div h4 { font-size: 0.85rem; color: var(--text); margin-bottom: 2px; }
+  .order-product div p  { font-size: 0.75rem; color: var(--text3); }
 
-th,
-td {
-    padding: 14px;
-    border: 1px solid #aaa;
-    text-align: left;
-}
+  .customer-cell { display: flex; align-items: center; gap: 8px; }
+  .customer-cell div h4 { font-size: 0.85rem; color: var(--text); margin-bottom: 1px; }
+  .customer-cell div p  { font-size: 0.74rem; color: var(--text3); }
 
-th {
-    background: #222;
-    color: white;
-}
+  .amount-cell { font-size: 0.95rem; font-weight: 700; color: var(--text); }
 
-tr:nth-child(even) {
-    background: #eee;
-}
+  .table-footer-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 10px; }
+  .table-footer-bar p { font-size: 0.8rem; color: var(--text3); }
+  .pagination { display: flex; gap: 5px; }
+  .page-btn { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg2); color: var(--text2); cursor: pointer; font-size: 0.82rem; transition: background 0.2s; }
+  .page-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-@media (max-width: 600px) {
-    body {
-        padding: 15px;
-    }
-}
+  .summary-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 20px; }
+  .summary-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--card-radius); padding: 18px 20px; box-shadow: var(--shadow); }
+  .summary-card h4 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text3); margin-bottom: 6px; }
+  .summary-card h2 { font-size: 1.5rem; font-weight: 800; color: var(--text); }
+  .summary-card p  { font-size: 0.75rem; margin-top: 4px; }
+
+  @media (max-width: 900px) { .summary-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 480px) { .summary-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
-
 <body>
 
-<h1>Student Records</h1>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><div class="brand-icon">🛍</div><div class="brand-name">Shop<span>Zone</span></div></div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Main</div>
+    <a href="Main.html" target="_top" class="sidebar-link"><span class="s-icon">🏠</span> Overview</a>
+    <a href="task09.html" class="sidebar-link"><span class="s-icon">📊</span> Dashboard</a>
+    <a href="task08.html" class="sidebar-link"><span class="s-icon">🛒</span> Shop</a>
+    <a href="task11.html" class="sidebar-link"><span class="s-icon">📰</span> Magazine</a>
+    <a href="task14.html" class="sidebar-link active"><span class="s-icon">📋</span> Orders</a>
+    <a href="task12.html" class="sidebar-link"><span class="s-icon">📝</span> Registration</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Content</div>
+    <a href="task06.html" class="sidebar-link"><span class="s-icon">🖼</span> Gallery</a>
+    <a href="task13.html" class="sidebar-link"><span class="s-icon">💼</span> Portfolio</a>
+    <a href="projects.html" class="sidebar-link"><span class="s-icon">🚀</span> Projects</a>
+    <a href="about.html" class="sidebar-link"><span class="s-icon">ℹ️</span> About</a>
+    <a href="task02.html" class="sidebar-link"><span class="s-icon">📰</span> Magazine</a>
+    <a href="task15.html" class="sidebar-link"><span class="s-icon">🚀</span> Landing Page</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">System</div>
+    <a href="task18.html" class="sidebar-link"><span class="s-icon">🌙</span> Dark Mode Demo</a>
+    <a href="task17.html" class="sidebar-link"><span class="s-icon">🧩</span> Utilities</a>
+    <a href="task16.html" class="sidebar-link"><span class="s-icon">📐</span> Breakpoints</a>
+    <a href="task10.html" class="sidebar-link"><span class="s-icon">📱</span> Media Queries</a>
+  </div>
+  <div class="sidebar-footer">ShopZone v2.0 · UET Peshawar</div>
+</aside>
 
-<div class="table-container">
-
-<table>
-
-<thead>
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Department</th>
-<th>Semester</th>
-<th>CGPA</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td>001</td>
-<td>Ali</td>
-<td>Computer Science</td>
-<td>4</td>
-<td>3.20</td>
-</tr>
-
-<tr>
-<td>002</td>
-<td>Ahmed</td>
-<td>Data Science</td>
-<td>5</td>
-<td>3.45</td>
-</tr>
-
-<tr>
-<td>003</td>
-<td>Usman</td>
-<td>Software Engineering</td>
-<td>3</td>
-<td>3.10</td>
-</tr>
-
-</tbody>
-
-</table>
-
+<div class="topbar">
+  <button class="hamburger" id="hamburger">☰</button>
+  <div class="topbar-title">Orders & Records</div>
+  <div class="topbar-search"><span>🔍</span><input type="text" placeholder="Search orders..."></div>
+  <div class="topbar-actions">
+    <div class="icon-btn">🔔<div class="notif-dot"></div></div>
+    <div class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</div>
+    <div class="avatar-btn">UN</div>
+  </div>
 </div>
 
+<div class="main-content">
+<div class="page-body">
+
+  <!-- SUMMARY -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <h4>Total Orders</h4><h2>2,540</h2>
+      <p class="trend-up">↑ 12.5% this month</p>
+    </div>
+    <div class="summary-card">
+      <h4>Delivered</h4><h2>1,980</h2>
+      <p class="trend-up">↑ 78% delivery rate</p>
+    </div>
+    <div class="summary-card">
+      <h4>Pending</h4><h2>412</h2>
+      <p style="color:var(--text3);">Awaiting processing</p>
+    </div>
+    <div class="summary-card">
+      <h4>Cancelled</h4><h2>148</h2>
+      <p class="trend-down">↓ 5.8% cancel rate</p>
+    </div>
+  </div>
+
+  <!-- ORDERS TABLE -->
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div style="padding:20px 22px;">
+      <div class="section-hdr">
+        <div><h2>All Orders</h2><p>Complete order history with status tracking</p></div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost btn-sm">⬇ Export</button>
+          <button class="btn btn-primary btn-sm">+ New Order</button>
+        </div>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-tab active">All (2,540)</button>
+        <button class="filter-tab">Delivered (1,980)</button>
+        <button class="filter-tab">Shipping (412)</button>
+        <button class="filter-tab">Pending (100)</button>
+        <button class="filter-tab">Cancelled (148)</button>
+        <div class="search-input">
+          <span style="color:var(--text3);">🔍</span>
+          <input type="text" placeholder="Search by order ID...">
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox" style="accent-color:var(--accent);"></th>
+            <th>Order ID</th>
+            <th>Product</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+            <td><strong style="color:var(--accent);">#ORD-1042</strong></td>
+            <td><div class="order-product"><img src="https://picsum.photos/38/38?random=80" alt=""><div><h4>Pro Laptop X1</h4><p>Electronics</p></div></div></td>
+            <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#6c63ff,#8b85ff);">AH</div><div><h4>Ali Hassan</h4><p>ali@email.com</p></div></div></td>
+            <td>Oct 6, 2026</td>
+            <td class="amount-cell">$800.00</td>
+            <td><span class="badge badge-green">Paid</span></td>
+            <td><span class="badge badge-green">Delivered</span></td>
+            <td><div style="display:flex;gap:6px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Edit</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+            <td><strong style="color:var(--accent);">#ORD-1041</strong></td>
+            <td><div class="order-product"><img src="https://picsum.photos/38/38?random=81" alt=""><div><h4>Wireless Headphones</h4><p>Audio</p></div></div></td>
+            <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#ff6584,#ff8fa3);">SK</div><div><h4>Sara Khan</h4><p>sara@email.com</p></div></div></td>
+            <td>Oct 5, 2026</td>
+            <td class="amount-cell">$120.00</td>
+            <td><span class="badge badge-green">Paid</span></td>
+            <td><span class="badge badge-orange">Shipping</span></td>
+            <td><div style="display:flex;gap:6px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Edit</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+            <td><strong style="color:var(--accent);">#ORD-1040</strong></td>
+            <td><div class="order-product"><img src="https://picsum.photos/38/38?random=82" alt=""><div><h4>Smart Watch Pro</h4><p>Wearables</p></div></div></td>
+            <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#43e97b,#38f9d7);">UN</div><div><h4>Usman Nazir</h4><p>usman@uet.edu.pk</p></div></div></td>
+            <td>Oct 4, 2026</td>
+            <td class="amount-cell">$150.00</td>
+            <td><span class="badge badge-green">Paid</span></td>
+            <td><span class="badge badge-green">Delivered</span></td>
+            <td><div style="display:flex;gap:6px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Edit</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+            <td><strong style="color:var(--accent);">#ORD-1039</strong></td>
+            <td><div class="order-product"><img src="https://picsum.photos/38/38?random=83" alt=""><div><h4>Mechanical Keyboard</h4><p>Accessories</p></div></div></td>
+            <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#f39c12,#f1c40f);">AM</div><div><h4>Ahmed Malik</h4><p>ahmed@email.com</p></div></div></td>
+            <td>Oct 3, 2026</td>
+            <td class="amount-cell">$60.00</td>
+            <td><span class="badge badge-red">Refunded</span></td>
+            <td><span class="badge badge-red">Cancelled</span></td>
+            <td><div style="display:flex;gap:6px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Edit</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+            <td><strong style="color:var(--accent);">#ORD-1038</strong></td>
+            <td><div class="order-product"><img src="https://picsum.photos/38/38?random=84" alt=""><div><h4>Gaming Mouse Pro</h4><p>Accessories</p></div></div></td>
+            <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#3498db,#2980b9);">FR</div><div><h4>Fatima Rehman</h4><p>fatima@email.com</p></div></div></td>
+            <td>Oct 2, 2026</td>
+            <td class="amount-cell">$45.00</td>
+            <td><span class="badge badge-orange">Pending</span></td>
+            <td><span class="badge badge-blue">Processing</span></td>
+            <td><div style="display:flex;gap:6px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Edit</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+            <td><strong style="color:var(--accent);">#ORD-1037</strong></td>
+            <td><div class="order-product"><img src="https://picsum.photos/38/38?random=85" alt=""><div><h4>4K Monitor 27"</h4><p>Displays</p></div></div></td>
+            <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#9b59b6,#8e44ad);">ZA</div><div><h4>Zain Ahmad</h4><p>zain@email.com</p></div></div></td>
+            <td>Oct 1, 2026</td>
+            <td class="amount-cell">$350.00</td>
+            <td><span class="badge badge-green">Paid</span></td>
+            <td><span class="badge badge-green">Delivered</span></td>
+            <td><div style="display:flex;gap:6px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Edit</button></div></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" style="accent-color:var(--accent);"></td>
+            <td><strong style="color:var(--accent);">#ORD-1036</strong></td>
+            <td><div class="order-product"><img src="https://picsum.photos/38/38?random=86" alt=""><div><h4>ProTab 12 — 256GB</h4><p>Tablets</p></div></div></td>
+            <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#e74c3c,#c0392b);">MK</div><div><h4>Maria Khan</h4><p>maria@email.com</p></div></div></td>
+            <td>Sep 30, 2026</td>
+            <td class="amount-cell">$480.00</td>
+            <td><span class="badge badge-green">Paid</span></td>
+            <td><span class="badge badge-orange">Shipping</span></td>
+            <td><div style="display:flex;gap:6px;"><button class="btn btn-ghost btn-sm">View</button><button class="btn btn-ghost btn-sm">Edit</button></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-footer-bar">
+      <p>Showing 7 of 2,540 orders</p>
+      <div class="pagination">
+        <button class="page-btn">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">›</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script src="shared.js"></script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopZone – Project Showcase</title><link rel="stylesheet" href="theme.css">
+  <style>
+    .intro { margin-bottom:22px; }.intro h1 { font-size:1.65rem; margin-bottom:6px; color:var(--text); }.intro p { color:var(--text2); line-height:1.6; }
+    .showcase { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .project-card { padding:22px; display:flex; flex-direction:column; min-height:220px; }
+    .project-icon { height:46px;width:46px;display:grid;place-items:center;background:rgba(108,99,255,.12);border-radius:14px;font-size:1.3rem;margin-bottom:16px; }
+    .project-card h2 { font-size:1rem;color:var(--text);margin-bottom:7px; }.project-card p { color:var(--text2);font-size:.86rem;line-height:1.6;flex:1; }
+    .project-card a { margin-top:15px;color:var(--accent);font-weight:700;text-decoration:none;font-size:.85rem; }.project-card a:hover{text-decoration:underline}
+    @media(max-width:950px){.showcase{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.showcase{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div id="app-layout" data-page="projects" data-title="Projects"></div>
+  <div class="topbar" id="topbar"><button class="hamburger" id="hamburger" aria-label="Open navigation">☰</button><div class="topbar-title">Project showcase</div><div class="topbar-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle light or dark theme">🌙</button><div class="avatar-btn" aria-label="Muhammad Usman Nazir">UN</div></div></div>
+  <main class="main-content"><div class="page-body">
+    <header class="intro"><h1>Lab 05 &amp; 06 showcase</h1><p>Each page demonstrates a web layout or responsive design concept. The shop and dashboard sections use a shared light/dark theme.</p></header>
+    <section class="showcase" aria-label="Project pages">
+      <article class="card project-card"><div class="project-icon">📊</div><h2>Store dashboard</h2><p>Sales overview, key metrics, charts, recent orders, and store activity.</p><a href="task09.html">Open dashboard →</a></article>
+      <article class="card project-card"><div class="project-icon">🛒</div><h2>Online shop</h2><p>Responsive product catalog with category filters, product cards, and shopping actions.</p><a href="task08.html">Browse the shop →</a></article>
+      <article class="card project-card"><div class="project-icon">📦</div><h2>Product catalog</h2><p>Product presentation and merchandising layout for the storefront.</p><a href="task11.html">View products →</a></article>
+      <article class="card project-card"><div class="project-icon">📋</div><h2>Orders &amp; records</h2><p>Order management table with responsive horizontal scrolling and status labels.</p><a href="task14.html">View orders →</a></article>
+      <article class="card project-card"><div class="project-icon">👤</div><h2>Student portfolio</h2><p>Profile, skills, selected coursework, and contact information.</p><a href="task13.html">Open portfolio →</a></article>
+      <article class="card project-card"><div class="project-icon">🎨</div><h2>CSS lab exercises</h2><p>Display, float, positioning, navigation, card, gallery, and responsive layout examples.</p><a href="task01.html">Start with Task 01 →</a></article>
+    </section>
+  </div></main>
+  <script src="shared.js"></script><script src="layout.js"></script>
+</body>
+</html>

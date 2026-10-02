@@ -3,108 +3,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Grid Magazine</title>
-
+<title>Task 11 – Grid Magazine</title>
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #eee;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.magazine {
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #222;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .masthead-logo { font-size: 1.8rem; font-weight: 900; letter-spacing: 2px; }
+  .masthead-logo span { color: #e94560; }
+  .masthead-nav { display: flex; gap: 5px; }
+  .masthead-nav a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+  }
+  .masthead-nav a:hover { background: rgba(255,255,255,0.1); color: white; }
+
+  .breaking-bar {
+    background: #e94560;
+    color: white;
+    padding: 8px 40px;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .breaking-bar strong { background: white; color: #e94560; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; }
+
+  /* MAGAZINE GRID */
+  .magazine {
     max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-
+    margin: 25px auto;
+    padding: 0 20px;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     grid-template-areas:
-        "hero hero side"
-        "article article side"
-        "news news news";
-    gap: 20px;
-}
+      "hero hero side"
+      "article article side"
+      "news news news";
+    gap: 18px;
+  }
 
-.hero {
+  /* HERO */
+  .hero {
     grid-area: hero;
-    background: white;
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    min-height: 320px;
+  }
+  .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,30,0.92) 0%, transparent 55%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     padding: 30px;
-}
+  }
+  .hero-overlay .tag {
+    display: inline-block;
+    background: #e94560;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    width: fit-content;
+  }
+  .hero-overlay h1 { color: white; font-size: 1.7rem; line-height: 1.3; margin-bottom: 10px; }
+  .hero-overlay p { color: rgba(255,255,255,0.7); font-size: 0.88rem; line-height: 1.5; }
 
-.side {
+  /* SIDEBAR */
+  .side {
     grid-area: side;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .side-card {
     background: white;
-    padding: 25px;
-}
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  }
+  .side-card img { width: 100%; height: 120px; object-fit: cover; display: block; }
+  .side-card-body { padding: 14px; }
+  .side-card-body .tag {
+    font-size: 0.7rem;
+    color: #e94560;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .side-card-body h4 { font-size: 0.9rem; color: #1a1a2e; line-height: 1.4; margin-bottom: 5px; }
+  .side-card-body small { color: #aaa; font-size: 0.75rem; }
 
-.article {
+  .trending-box {
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    border-radius: 12px;
+    padding: 18px;
+    color: white;
+  }
+  .trending-box h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #e94560; margin-bottom: 12px; }
+  .trend-item { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .trend-item:last-child { border-bottom: none; }
+  .trend-num { color: #e94560; font-weight: 800; font-size: 1rem; width: 20px; }
+  .trend-item span { font-size: 0.82rem; color: rgba(255,255,255,0.75); }
+
+  /* ARTICLE */
+  .article {
     grid-area: article;
     background: white;
-    padding: 25px;
-}
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    display: flex;
+    gap: 0;
+  }
+  .article img { width: 220px; object-fit: cover; flex-shrink: 0; }
+  .article-body { padding: 25px; }
+  .article-body .tag { font-size: 0.72rem; color: #e94560; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 8px; }
+  .article-body h2 { font-size: 1.2rem; color: #1a1a2e; margin-bottom: 10px; line-height: 1.4; }
+  .article-body p { color: #666; font-size: 0.88rem; line-height: 1.6; margin-bottom: 15px; }
+  .article-body .meta { font-size: 0.78rem; color: #bbb; }
+  .article-body .meta span { color: #e94560; }
 
-.news {
+  /* NEWS ROW */
+  .news {
     grid-area: news;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .news-card {
     background: white;
-    padding: 25px;
-}
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  }
+  .news-card img { width: 100%; height: 130px; object-fit: cover; display: block; }
+  .news-card-body { padding: 14px; }
+  .news-card-body .tag { font-size: 0.7rem; color: #e94560; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 5px; }
+  .news-card-body h4 { font-size: 0.9rem; color: #1a1a2e; line-height: 1.4; margin-bottom: 5px; }
+  .news-card-body small { color: #bbb; font-size: 0.75rem; }
 
-@media (max-width: 800px) {
+  @media (max-width: 800px) {
     .magazine {
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-            "hero hero"
-            "side side"
-            "article article"
-            "news news";
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "hero hero" "side side" "article article" "news news";
     }
-}
+    .article { flex-direction: column; }
+    .article img { width: 100%; height: 180px; }
+    .news { grid-template-columns: repeat(2, 1fr); }
+  }
 
-@media (max-width: 500px) {
+  @media (max-width: 500px) {
     .magazine {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "hero"
-            "side"
-            "article"
-            "news";
+      grid-template-columns: 1fr;
+      grid-template-areas: "hero" "side" "article" "news";
     }
-}
+    .news { grid-template-columns: 1fr; }
+    .masthead { padding: 15px 20px; }
+    .masthead-nav { display: none; }
+  }
 </style>
 </head>
-
 <body>
+
+<div class="masthead">
+  <div class="masthead-logo">TECH<span>PULSE</span></div>
+  <nav class="masthead-nav">
+    <a href="#">Home</a>
+    <a href="#">Tech</a>
+    <a href="#">AI</a>
+    <a href="#">Science</a>
+    <a href="#">World</a>
+  </nav>
+</div>
+
+<div class="breaking-bar">
+  <strong>BREAKING</strong>
+  <span>AI surpasses human performance in new benchmark tests · Web 4.0 standards announced · UET Peshawar launches new CS program</span>
+</div>
 
 <div class="magazine">
 
-<section class="hero">
-    <h1>Technology in 2026</h1>
-    <p>
-        Discover the latest developments in modern technology.
-    </p>
-</section>
+  <section class="hero">
+    <img src="https://picsum.photos/900/500?random=30" alt="Hero">
+    <div class="hero-overlay">
+      <span class="tag">Featured</span>
+      <h1>Technology in 2026: What's Changing the World</h1>
+      <p>Discover the latest breakthroughs in AI, cloud computing, and modern web development shaping our digital future.</p>
+    </div>
+  </section>
 
-<aside class="side">
-    <h2>Trending</h2>
-    <p>Artificial Intelligence</p>
-    <p>Robotics</p>
-    <p>Cloud Computing</p>
-</aside>
+  <aside class="side">
+    <div class="side-card">
+      <img src="https://picsum.photos/400/200?random=31" alt="">
+      <div class="side-card-body">
+        <div class="tag">AI</div>
+        <h4>Machine Learning Models Hit New Accuracy Records</h4>
+        <small>2 hours ago</small>
+      </div>
+    </div>
+    <div class="trending-box">
+      <h3>🔥 Trending</h3>
+      <div class="trend-item"><span class="trend-num">1</span><span>Artificial Intelligence</span></div>
+      <div class="trend-item"><span class="trend-num">2</span><span>Robotics & Automation</span></div>
+      <div class="trend-item"><span class="trend-num">3</span><span>Cloud Computing</span></div>
+      <div class="trend-item"><span class="trend-num">4</span><span>Quantum Computing</span></div>
+      <div class="trend-item"><span class="trend-num">5</span><span>Cybersecurity</span></div>
+    </div>
+  </aside>
 
-<article class="article">
-    <h2>The Future of Software</h2>
-    <p>
-        Software development continues to evolve through
-        automation and artificial intelligence.
-    </p>
-</article>
+  <article class="article">
+    <img src="https://picsum.photos/400/300?random=32" alt="">
+    <div class="article-body">
+      <div class="tag">Software</div>
+      <h2>The Future of Software Development with AI Assistance</h2>
+      <p>Software development continues to evolve rapidly through automation and artificial intelligence. Developers now use AI-powered tools to write, test, and deploy code faster than ever before.</p>
+      <div class="meta">By <span>Ahmad Raza</span> · October 6, 2026 · 5 min read</div>
+    </div>
+  </article>
 
-<section class="news">
-    <h2>Latest News</h2>
-    <p>Web technologies are becoming increasingly responsive.</p>
-</section>
+  <section class="news">
+    <div class="news-card">
+      <img src="https://picsum.photos/400/200?random=33" alt="">
+      <div class="news-card-body">
+        <div class="tag">Cloud</div>
+        <h4>Major Cloud Providers Announce New Data Centers in Asia</h4>
+        <small>4 hours ago</small>
+      </div>
+    </div>
+    <div class="news-card">
+      <img src="https://picsum.photos/400/200?random=34" alt="">
+      <div class="news-card-body">
+        <div class="tag">Security</div>
+        <h4>New Cybersecurity Framework Released for Web Applications</h4>
+        <small>6 hours ago</small>
+      </div>
+    </div>
+    <div class="news-card">
+      <img src="https://picsum.photos/400/200?random=35" alt="">
+      <div class="news-card-body">
+        <div class="tag">Web Dev</div>
+        <h4>CSS Grid Level 3 Specification Officially Published</h4>
+        <small>Yesterday</small>
+      </div>
+    </div>
+  </section>
 
 </div>
 

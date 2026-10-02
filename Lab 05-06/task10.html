@@ -3,89 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Media Queries</title>
-
+<title>Task 10 – Media Queries</title>
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #1a1a2e;
+    color: white;
+    min-height: 100vh;
+    padding: 50px 20px;
     text-align: center;
-    padding: 40px;
-    background: white;
-}
+    transition: background 0.4s, color 0.4s;
+  }
 
-.box {
-    padding: 50px;
-    margin: 30px auto;
-    max-width: 700px;
-    background: #ddd;
-}
+  h1 { font-size: 2rem; margin-bottom: 8px; }
+  h1 span { color: #e94560; }
+  .subtitle { color: rgba(255,255,255,0.5); margin-bottom: 40px; font-size: 0.95rem; }
 
-.box::after {
-    content: "Desktop";
-    font-size: 30px;
-}
+  /* SCREEN SIZE INDICATOR BOX */
+  .indicator {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    padding: 40px 30px;
+    border-radius: 16px;
+    border: 2px solid #e94560;
+    background: rgba(233,69,96,0.1);
+    transition: all 0.4s;
+  }
+  .indicator .screen-icon { font-size: 4rem; margin-bottom: 15px; }
+  .indicator .screen-label {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #e94560;
+    margin-bottom: 8px;
+  }
+  .indicator .screen-label::after { content: "🖥 Desktop (> 1000px)"; }
+  .indicator p { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
 
-@media (max-width: 1000px) {
-    body {
-        background: #eee;
-    }
+  /* BREAKPOINT CARDS */
+  .breakpoints {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto 40px;
+  }
+  .bp-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 20px 25px;
+    min-width: 160px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .bp-card .bp-icon { font-size: 2rem; margin-bottom: 8px; }
+  .bp-card h3 { font-size: 0.9rem; margin-bottom: 4px; }
+  .bp-card p { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+  .bp-card.active-bp {
+    border-color: #e94560;
+    background: rgba(233,69,96,0.15);
+  }
 
-    .box::after {
-        content: "Tablet / Medium Screen";
-    }
-}
+  .note {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.85rem;
+    margin-top: 10px;
+  }
 
-@media (max-width: 700px) {
-    body {
-        padding: 20px;
-    }
+  /* ===== MEDIA QUERIES ===== */
 
-    .box {
-        padding: 30px;
-    }
+  /* Tablet / Medium */
+  @media (max-width: 1000px) {
+    body { background: #16213e; }
+    .indicator { border-color: #2196f3; background: rgba(33,150,243,0.1); }
+    .indicator .screen-label { color: #2196f3; }
+    .indicator .screen-label::after { content: "💻 Tablet / Medium (≤ 1000px)"; }
+  }
 
-    .box::after {
-        content: "Small Tablet";
-    }
-}
+  /* Small Tablet */
+  @media (max-width: 700px) {
+    body { background: #0f3460; padding: 30px 15px; }
+    .indicator { border-color: #ff9800; background: rgba(255,152,0,0.1); }
+    .indicator .screen-label { color: #ff9800; }
+    .indicator .screen-label::after { content: "📱 Small Tablet (≤ 700px)"; }
+    h1 { font-size: 1.6rem; }
+  }
 
-@media (max-width: 500px) {
-    body {
-        background: #ddd;
-    }
+  /* Mobile */
+  @media (max-width: 500px) {
+    body { background: #0a0a1a; }
+    .indicator { border-color: #4caf50; background: rgba(76,175,80,0.1); padding: 25px 20px; }
+    .indicator .screen-label { color: #4caf50; font-size: 1.4rem; }
+    .indicator .screen-label::after { content: "📲 Mobile (≤ 500px)"; }
+  }
 
-    .box {
-        padding: 20px;
-    }
-
-    .box::after {
-        content: "Mobile";
-    }
-}
-
-@media print {
-    body {
-        background: white;
-    }
-
-    .box::after {
-        content: "Print Version";
-    }
-}
+  /* Print */
+  @media print {
+    body { background: white; color: black; }
+    .indicator { border-color: black; background: #f5f5f5; }
+    .indicator .screen-label { color: black; }
+    .indicator .screen-label::after { content: "🖨 Print Version"; }
+  }
 </style>
 </head>
-
 <body>
 
-<h1>Media Query Demonstration</h1>
+<h1>Media Query <span>Demo</span></h1>
+<p class="subtitle">Resize the browser window to see the layout and colors change</p>
 
-<div class="box"></div>
+<div class="indicator">
+  <div class="screen-icon">🖥</div>
+  <div class="screen-label"></div>
+  <p>The background color, border color, and label above all change based on your current screen width.</p>
+</div>
 
-<p>
-Resize the browser to observe the changes.
-</p>
+<div class="breakpoints">
+  <div class="bp-card">
+    <div class="bp-icon">🖥</div>
+    <h3>Desktop</h3>
+    <p>&gt; 1000px</p>
+  </div>
+  <div class="bp-card">
+    <div class="bp-icon">💻</div>
+    <h3>Tablet</h3>
+    <p>≤ 1000px</p>
+  </div>
+  <div class="bp-card">
+    <div class="bp-icon">📱</div>
+    <h3>Small Tablet</h3>
+    <p>≤ 700px</p>
+  </div>
+  <div class="bp-card">
+    <div class="bp-icon">📲</div>
+    <h3>Mobile</h3>
+    <p>≤ 500px</p>
+  </div>
+  <div class="bp-card">
+    <div class="bp-icon">🖨</div>
+    <h3>Print</h3>
+    <p>@media print</p>
+  </div>
+</div>
+
+<p class="note">⬅ Drag the browser edge to resize and watch the changes happen in real time</p>
 
 </body>
 </html>

@@ -1,220 +1,394 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Task 8 – Product Grid</title>
+<title>ShopZone – Shop</title>
+<link rel="stylesheet" href="theme.css">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .shop-layout { display: grid; grid-template-columns: 260px 1fr; gap: 24px; }
 
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f0f2f5;
-    color: #222;
-  }
+  /* FILTER PANEL */
+  .filter-panel { display: flex; flex-direction: column; gap: 20px; }
+  .filter-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--card-radius); padding: 20px; box-shadow: var(--shadow); }
+  .filter-card h3 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text3); margin-bottom: 14px; }
+  .filter-option { display: flex; align-items: center; gap: 10px; padding: 7px 0; cursor: pointer; }
+  .filter-option input[type=checkbox] { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
+  .filter-option label { font-size: 0.88rem; color: var(--text2); cursor: pointer; flex: 1; }
+  .filter-option .count { font-size: 0.75rem; color: var(--text3); background: var(--bg3); padding: 2px 7px; border-radius: 10px; }
 
-  header {
-    background: linear-gradient(135deg, #1a1a2e, #0f3460);
-    color: white;
-    padding: 20px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  header h1 { font-size: 1.5rem; }
-  header h1 span { color: #e94560; }
-  .cart-btn {
-    background: #e94560;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: bold;
-  }
+  .price-range { display: flex; flex-direction: column; gap: 10px; }
+  .price-range input[type=range] { accent-color: var(--accent); width: 100%; }
+  .price-range .range-labels { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text3); }
 
-  .container { max-width: 1200px; margin: auto; padding: 35px 25px; }
+  .color-swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+  .swatch { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; }
+  .swatch:hover, .swatch.active { border-color: var(--accent); }
 
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .section-header h2 { font-size: 1.5rem; color: #1a1a2e; }
-  .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
-  .filter-btn {
-    padding: 7px 16px;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-    background: white;
-    cursor: pointer;
-    font-size: 0.8rem;
-    color: #555;
-  }
-  .filter-btn.active { background: #e94560; color: white; border-color: #e94560; }
+  /* PRODUCTS AREA */
+  .products-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+  .products-header h2 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+  .products-header p { font-size: 0.82rem; color: var(--text3); }
+  .sort-select { background: var(--bg2); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 10px; font-size: 0.85rem; cursor: pointer; outline: none; }
 
-  .products {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-  }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
-  .product {
-    background: white;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .product:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-  }
+  /* PRODUCT CARD */
+  .prod-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--card-radius); overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
+  .prod-card:hover { transform: translateY(-5px); box-shadow: var(--shadow2); }
+  .prod-img-wrap { position: relative; overflow: hidden; }
+  .prod-img-wrap img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform 0.4s; }
+  .prod-card:hover .prod-img-wrap img { transform: scale(1.06); }
+  .prod-badge { position: absolute; top: 12px; left: 12px; }
+  .prod-actions { position: absolute; top: 12px; right: 12px; display: flex; flex-direction: column; gap: 6px; opacity: 0; transition: opacity 0.3s; }
+  .prod-card:hover .prod-actions { opacity: 1; }
+  .prod-action-btn { width: 32px; height: 32px; border-radius: 8px; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; box-shadow: var(--shadow); transition: background 0.2s; }
+  .prod-action-btn:hover { background: var(--accent); color: white; }
 
-  .product-img-wrap { position: relative; }
-  .product img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    display: block;
-  }
-  .product-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: #e94560;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.72rem;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  .wishlist {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: white;
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
+  .prod-body { padding: 16px; }
+  .prod-cat { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); font-weight: 700; margin-bottom: 5px; }
+  .prod-name { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 6px; line-height: 1.3; }
+  .prod-stars { color: #f39c12; font-size: 0.78rem; margin-bottom: 10px; }
+  .prod-stars span { color: var(--text3); margin-left: 4px; }
+  .prod-price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .prod-price { font-size: 1.2rem; font-weight: 800; color: var(--accent); }
+  .prod-old { font-size: 0.82rem; color: var(--text3); text-decoration: line-through; }
+  .prod-discount { font-size: 0.72rem; background: rgba(67,233,123,0.15); color: #2ecc71; padding: 2px 7px; border-radius: 6px; font-weight: 700; }
+  .add-cart-btn { width: 100%; padding: 11px; border: none; border-radius: 10px; background: linear-gradient(135deg, var(--accent), #8b85ff); color: white; font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+  .add-cart-btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
-  .product-body { padding: 16px; }
-  .product-body h3 { font-size: 1rem; color: #1a1a2e; margin-bottom: 5px; }
-  .stars { color: #f5a623; font-size: 0.8rem; margin-bottom: 8px; }
-  .stars span { color: #999; font-size: 0.75rem; margin-left: 4px; }
+  /* PAGINATION */
+  .pagination { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 28px; }
+  .page-btn { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg2); color: var(--text2); cursor: pointer; font-size: 0.85rem; transition: background 0.2s, color 0.2s; }
+  .page-btn:hover, .page-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-  .price-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .price { font-size: 1.3rem; font-weight: 800; color: #e94560; }
-  .old-price { font-size: 0.85rem; color: #aaa; text-decoration: line-through; }
-
-  .add-btn {
-    width: 100%;
-    padding: 11px;
-    border: none;
-    background: linear-gradient(135deg, #1a1a2e, #0f3460);
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: bold;
-    transition: background 0.2s;
-  }
-  .add-btn:hover { background: linear-gradient(135deg, #e94560, #c62a47); }
-
-  @media (max-width: 900px) { .products { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 500px) { .products { grid-template-columns: 1fr; } }
+  @media (max-width: 1100px) { .products-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 900px)  { .shop-layout { grid-template-columns: 1fr; } .filter-panel { display: grid; grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px)  { .products-grid { grid-template-columns: 1fr; } .filter-panel { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Shop<span>Zone</span></h1>
-  <button class="cart-btn">🛒 Cart (0)</button>
-</header>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<div class="container">
-  <div class="section-header">
-    <h2>Featured Products</h2>
-    <div class="filter-btns">
-      <button class="filter-btn active">All</button>
-      <button class="filter-btn">Electronics</button>
-      <button class="filter-btn">Accessories</button>
-      <button class="filter-btn">Gadgets</button>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><div class="brand-icon">🛍</div><div class="brand-name">Shop<span>Zone</span></div></div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Main</div>
+    <a href="Main.html" target="_top" class="sidebar-link"><span class="s-icon">🏠</span> Overview</a>
+    <a href="task09.html" class="sidebar-link"><span class="s-icon">📊</span> Dashboard</a>
+    <a href="task08.html" class="sidebar-link active"><span class="s-icon">🛒</span> Shop <span class="s-badge">New</span></a>
+    <a href="task11.html" class="sidebar-link"><span class="s-icon">📰</span> Magazine</a>
+    <a href="task14.html" class="sidebar-link"><span class="s-icon">📋</span> Orders</a>
+    <a href="task12.html" class="sidebar-link"><span class="s-icon">📝</span> Registration</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Content</div>
+    <a href="task06.html" class="sidebar-link"><span class="s-icon">🖼</span> Gallery</a>
+    <a href="task13.html" class="sidebar-link"><span class="s-icon">💼</span> Portfolio</a>
+    <a href="projects.html" class="sidebar-link"><span class="s-icon">🚀</span> Projects</a>
+    <a href="about.html" class="sidebar-link"><span class="s-icon">ℹ️</span> About</a>
+    <a href="task02.html" class="sidebar-link"><span class="s-icon">📰</span> Magazine</a>
+    <a href="task15.html" class="sidebar-link"><span class="s-icon">🚀</span> Landing Page</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">System</div>
+    <a href="task18.html" class="sidebar-link"><span class="s-icon">🌙</span> Dark Mode Demo</a>
+    <a href="task17.html" class="sidebar-link"><span class="s-icon">🧩</span> Utilities</a>
+    <a href="task16.html" class="sidebar-link"><span class="s-icon">📐</span> Breakpoints</a>
+    <a href="task10.html" class="sidebar-link"><span class="s-icon">📱</span> Media Queries</a>
+  </div>
+  <div class="sidebar-footer">ShopZone v2.0 · UET Peshawar</div>
+</aside>
+
+<div class="topbar">
+  <button class="hamburger" id="hamburger">☰</button>
+  <div class="topbar-title">Shop</div>
+  <div class="topbar-search">
+    <span>🔍</span><input type="text" placeholder="Search products...">
+  </div>
+  <div class="topbar-actions">
+    <div class="icon-btn">🔔<div class="notif-dot"></div></div>
+    <div class="icon-btn" id="cartCount" aria-label="Shopping cart, 0 items">🛒 <span>0</span></div>
+    <div class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</div>
+    <div class="avatar-btn">UN</div>
+  </div>
+</div>
+
+<div class="main-content">
+<div class="page-body">
+
+  <!-- HERO BANNER -->
+  <div style="background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);border-radius:var(--card-radius);padding:32px 36px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;overflow:hidden;position:relative;">
+    <div style="position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:rgba(255,255,255,0.08);border-radius:50%;"></div>
+    <div style="position:absolute;right:60px;bottom:-60px;width:150px;height:150px;background:rgba(255,255,255,0.06);border-radius:50%;"></div>
+    <div style="position:relative;z-index:1;">
+      <p style="color:rgba(255,255,255,0.75);font-size:0.82rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">Limited Time Offer</p>
+      <h1 style="color:white;font-size:1.8rem;margin-bottom:8px;">Up to <span style="font-size:2.2rem;">50% OFF</span></h1>
+      <p style="color:rgba(255,255,255,0.8);font-size:0.92rem;">On all electronics this weekend only</p>
     </div>
+    <button class="btn" style="background:white;color:var(--accent);font-weight:800;position:relative;z-index:1;">Shop Now →</button>
   </div>
 
-  <div class="products">
+  <div class="shop-layout">
 
-    <div class="product">
-      <div class="product-img-wrap">
-        <img src="https://picsum.photos/400/300?random=20" alt="Laptop">
-        <span class="product-badge">Hot</span>
-        <button class="wishlist">♡</button>
+    <!-- FILTERS -->
+    <div class="filter-panel">
+      <div class="filter-card">
+        <h3>Categories</h3>
+        <div class="filter-option"><input type="checkbox" id="c1" checked><label for="c1">Electronics</label><span class="count">48</span></div>
+        <div class="filter-option"><input type="checkbox" id="c2"><label for="c2">Fashion</label><span class="count">32</span></div>
+        <div class="filter-option"><input type="checkbox" id="c3"><label for="c3">Home & Garden</label><span class="count">27</span></div>
+        <div class="filter-option"><input type="checkbox" id="c4"><label for="c4">Sports</label><span class="count">19</span></div>
+        <div class="filter-option"><input type="checkbox" id="c5"><label for="c5">Books</label><span class="count">14</span></div>
+        <div class="filter-option"><input type="checkbox" id="c6"><label for="c6">Toys</label><span class="count">11</span></div>
       </div>
-      <div class="product-body">
-        <h3>Pro Laptop X1</h3>
-        <div class="stars">★★★★★ <span>(128)</span></div>
-        <div class="price-row"><span class="price">$800</span><span class="old-price">$999</span></div>
-        <button class="add-btn">Add to Cart</button>
+
+      <div class="filter-card">
+        <h3>Price Range</h3>
+        <div class="price-range">
+          <input type="range" min="0" max="1000" value="800">
+          <div class="range-labels"><span>$0</span><span>$800</span></div>
+        </div>
       </div>
+
+      <div class="filter-card">
+        <h3>Rating</h3>
+        <div class="filter-option"><input type="checkbox" id="r5" checked><label for="r5">★★★★★ (5 stars)</label></div>
+        <div class="filter-option"><input type="checkbox" id="r4" checked><label for="r4">★★★★☆ (4+ stars)</label></div>
+        <div class="filter-option"><input type="checkbox" id="r3"><label for="r3">★★★☆☆ (3+ stars)</label></div>
+      </div>
+
+      <div class="filter-card">
+        <h3>Color</h3>
+        <div class="color-swatches">
+          <div class="swatch active" style="background:#1a1a2e;" title="Black"></div>
+          <div class="swatch" style="background:#ffffff;border:1px solid #ddd;" title="White"></div>
+          <div class="swatch" style="background:#6c63ff;" title="Purple"></div>
+          <div class="swatch" style="background:#ff6584;" title="Pink"></div>
+          <div class="swatch" style="background:#43e97b;" title="Green"></div>
+          <div class="swatch" style="background:#3498db;" title="Blue"></div>
+          <div class="swatch" style="background:#f39c12;" title="Orange"></div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;">Apply Filters</button>
+      <button class="btn btn-ghost" style="width:100%;">Clear All</button>
     </div>
 
-    <div class="product">
-      <div class="product-img-wrap">
-        <img src="https://picsum.photos/400/300?random=21" alt="Headphones">
-        <span class="product-badge">Sale</span>
-        <button class="wishlist">♡</button>
+    <!-- PRODUCTS -->
+    <div>
+      <div class="products-header">
+        <div><h2>All Products</h2><p>Showing 8 of 320 products</p></div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <select class="sort-select">
+            <option>Sort: Featured</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+            <option>Newest First</option>
+            <option>Best Rated</option>
+          </select>
+        </div>
       </div>
-      <div class="product-body">
-        <h3>Wireless Headphones</h3>
-        <div class="stars">★★★★☆ <span>(84)</span></div>
-        <div class="price-row"><span class="price">$120</span><span class="old-price">$160</span></div>
-        <button class="add-btn">Add to Cart</button>
-      </div>
-    </div>
 
-    <div class="product">
-      <div class="product-img-wrap">
-        <img src="https://picsum.photos/400/300?random=22" alt="Watch">
-        <button class="wishlist">♡</button>
-      </div>
-      <div class="product-body">
-        <h3>Smart Watch Pro</h3>
-        <div class="stars">★★★★★ <span>(210)</span></div>
-        <div class="price-row"><span class="price">$150</span><span class="old-price">$200</span></div>
-        <button class="add-btn">Add to Cart</button>
-      </div>
-    </div>
+      <div class="products-grid">
 
-    <div class="product">
-      <div class="product-img-wrap">
-        <img src="https://picsum.photos/400/300?random=23" alt="Keyboard">
-        <span class="product-badge">New</span>
-        <button class="wishlist">♡</button>
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://picsum.photos/400/300?random=70" alt="Laptop">
+            <div class="prod-badge"><span class="badge badge-red">HOT</span></div>
+            <div class="prod-actions">
+              <div class="prod-action-btn" title="Wishlist">♡</div>
+              <div class="prod-action-btn" title="Quick View">👁</div>
+              <div class="prod-action-btn" title="Compare">⚖</div>
+            </div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-cat">Electronics</div>
+            <div class="prod-name">Pro Laptop X1 — 16GB RAM</div>
+            <div class="prod-stars">★★★★★ <span>(128 reviews)</span></div>
+            <div class="prod-price-row"><span class="prod-price">$800</span><span class="prod-old">$999</span><span class="prod-discount">-20%</span></div>
+            <button class="add-cart-btn">🛒 Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://picsum.photos/400/300?random=71" alt="Headphones">
+            <div class="prod-badge"><span class="badge badge-purple">NEW</span></div>
+            <div class="prod-actions">
+              <div class="prod-action-btn">♡</div>
+              <div class="prod-action-btn">👁</div>
+              <div class="prod-action-btn">⚖</div>
+            </div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-cat">Audio</div>
+            <div class="prod-name">Wireless Noise-Cancel Headphones</div>
+            <div class="prod-stars">★★★★☆ <span>(84 reviews)</span></div>
+            <div class="prod-price-row"><span class="prod-price">$120</span><span class="prod-old">$160</span><span class="prod-discount">-25%</span></div>
+            <button class="add-cart-btn">🛒 Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://picsum.photos/400/300?random=72" alt="Watch">
+            <div class="prod-actions">
+              <div class="prod-action-btn">♡</div>
+              <div class="prod-action-btn">👁</div>
+              <div class="prod-action-btn">⚖</div>
+            </div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-cat">Wearables</div>
+            <div class="prod-name">Smart Watch Pro Series 5</div>
+            <div class="prod-stars">★★★★★ <span>(210 reviews)</span></div>
+            <div class="prod-price-row"><span class="prod-price">$150</span><span class="prod-old">$200</span><span class="prod-discount">-25%</span></div>
+            <button class="add-cart-btn">🛒 Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://picsum.photos/400/300?random=73" alt="Keyboard">
+            <div class="prod-badge"><span class="badge badge-green">SALE</span></div>
+            <div class="prod-actions">
+              <div class="prod-action-btn">♡</div>
+              <div class="prod-action-btn">👁</div>
+              <div class="prod-action-btn">⚖</div>
+            </div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-cat">Accessories</div>
+            <div class="prod-name">RGB Mechanical Keyboard TKL</div>
+            <div class="prod-stars">★★★★☆ <span>(56 reviews)</span></div>
+            <div class="prod-price-row"><span class="prod-price">$60</span><span class="prod-old">$80</span><span class="prod-discount">-25%</span></div>
+            <button class="add-cart-btn">🛒 Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://picsum.photos/400/300?random=74" alt="Monitor">
+            <div class="prod-actions">
+              <div class="prod-action-btn">♡</div>
+              <div class="prod-action-btn">👁</div>
+              <div class="prod-action-btn">⚖</div>
+            </div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-cat">Displays</div>
+            <div class="prod-name">4K Ultra HD Monitor 27"</div>
+            <div class="prod-stars">★★★★★ <span>(92 reviews)</span></div>
+            <div class="prod-price-row"><span class="prod-price">$350</span><span class="prod-old">$450</span><span class="prod-discount">-22%</span></div>
+            <button class="add-cart-btn">🛒 Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://picsum.photos/400/300?random=75" alt="Mouse">
+            <div class="prod-badge"><span class="badge badge-orange">LIMITED</span></div>
+            <div class="prod-actions">
+              <div class="prod-action-btn">♡</div>
+              <div class="prod-action-btn">👁</div>
+              <div class="prod-action-btn">⚖</div>
+            </div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-cat">Accessories</div>
+            <div class="prod-name">Wireless Gaming Mouse Pro</div>
+            <div class="prod-stars">★★★★☆ <span>(47 reviews)</span></div>
+            <div class="prod-price-row"><span class="prod-price">$45</span><span class="prod-old">$65</span><span class="prod-discount">-31%</span></div>
+            <button class="add-cart-btn">🛒 Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://picsum.photos/400/300?random=76" alt="Tablet">
+            <div class="prod-actions">
+              <div class="prod-action-btn">♡</div>
+              <div class="prod-action-btn">👁</div>
+              <div class="prod-action-btn">⚖</div>
+            </div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-cat">Tablets</div>
+            <div class="prod-name">ProTab 12 — 256GB WiFi</div>
+            <div class="prod-stars">★★★★★ <span>(175 reviews)</span></div>
+            <div class="prod-price-row"><span class="prod-price">$480</span><span class="prod-old">$599</span><span class="prod-discount">-20%</span></div>
+            <button class="add-cart-btn">🛒 Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="prod-card">
+          <div class="prod-img-wrap">
+            <img src="https://picsum.photos/400/300?random=77" alt="Speaker">
+            <div class="prod-badge"><span class="badge badge-blue">TRENDING</span></div>
+            <div class="prod-actions">
+              <div class="prod-action-btn">♡</div>
+              <div class="prod-action-btn">👁</div>
+              <div class="prod-action-btn">⚖</div>
+            </div>
+          </div>
+          <div class="prod-body">
+            <div class="prod-cat">Audio</div>
+            <div class="prod-name">Bluetooth Speaker 360° Sound</div>
+            <div class="prod-stars">★★★★☆ <span>(63 reviews)</span></div>
+            <div class="prod-price-row"><span class="prod-price">$75</span><span class="prod-old">$100</span><span class="prod-discount">-25%</span></div>
+            <button class="add-cart-btn">🛒 Add to Cart</button>
+          </div>
+        </div>
+
       </div>
-      <div class="product-body">
-        <h3>Mechanical Keyboard</h3>
-        <div class="stars">★★★★☆ <span>(56)</span></div>
-        <div class="price-row"><span class="price">$60</span><span class="old-price">$80</span></div>
-        <button class="add-btn">Add to Cart</button>
+
+      <div class="pagination">
+        <button class="page-btn">‹</button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">...</button>
+        <button class="page-btn">12</button>
+        <button class="page-btn">›</button>
       </div>
     </div>
 
   </div>
 </div>
+</div>
 
+<div id="cartToast" role="status" aria-live="polite" style="position:fixed;right:24px;bottom:24px;z-index:300;padding:12px 18px;border-radius:12px;background:var(--sidebar-bg);color:white;box-shadow:var(--shadow2);opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none">Added to cart</div>
+<script src="shared.js"></script>
+<script>
+  (() => {
+    let count = 0;
+    let toastTimer;
+    const cart = document.getElementById('cartCount');
+    const toast = document.getElementById('cartToast');
+    document.querySelectorAll('.add-cart-btn').forEach((button) => {
+      button.addEventListener('click', () => {
+        count += 1;
+        cart.querySelector('span').textContent = count;
+        cart.setAttribute('aria-label', `Shopping cart, ${count} ${count === 1 ? 'item' : 'items'}`);
+        button.textContent = '✓ Added';
+        window.setTimeout(() => { button.textContent = '🛒 Add to Cart'; }, 1100);
+        toast.textContent = `Added to cart · ${count} ${count === 1 ? 'item' : 'items'} total`;
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(8px)'; }, 1800);
+      });
+    });
+    const search = document.querySelector('.topbar-search input');
+    search?.addEventListener('input', () => {
+      const query = search.value.trim().toLowerCase();
+      document.querySelectorAll('.prod-card').forEach((card) => {
+        card.hidden = !card.textContent.toLowerCase().includes(query);
+      });
+    });
+  })();
+</script>
 </body>
 </html>

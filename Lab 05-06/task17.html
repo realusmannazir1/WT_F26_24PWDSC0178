@@ -3,115 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Responsive Utilities</title>
-
+<title>Task 17 – Responsive Utility Classes</title>
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 20px;
-}
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0a0a1a;
+    color: #eee;
+    padding: 40px 20px;
+  }
 
-/* Display utilities */
-.d-none {
-    display: none;
-}
+  /* ===== UTILITY CLASSES ===== */
+  .d-none    { display: none; }
+  .d-block   { display: block; }
+  .d-flex    { display: flex; }
+  .d-grid    { display: grid; }
+  .d-inline  { display: inline; }
+  .d-inline-block { display: inline-block; }
 
-.d-block {
-    display: block;
-}
+  .flex-wrap   { flex-wrap: wrap; }
+  .flex-col    { flex-direction: column; }
+  .items-center { align-items: center; }
+  .justify-center { justify-content: center; }
+  .justify-between { justify-content: space-between; }
 
-.d-flex {
-    display: flex;
-}
+  .gap-1 { gap: 10px; }
+  .gap-2 { gap: 20px; }
+  .gap-3 { gap: 30px; }
 
-.d-grid {
-    display: grid;
-}
+  .p-1 { padding: 10px; }
+  .p-2 { padding: 20px; }
+  .p-3 { padding: 30px; }
+  .px-2 { padding-left: 20px; padding-right: 20px; }
+  .py-2 { padding-top: 20px; padding-bottom: 20px; }
 
-/* Spacing */
-.p-1 {
-    padding: 10px;
-}
+  .m-1 { margin: 10px; }
+  .m-2 { margin: 20px; }
+  .mb-1 { margin-bottom: 10px; }
+  .mb-2 { margin-bottom: 20px; }
+  .mt-2 { margin-top: 20px; }
 
-.p-2 {
-    padding: 20px;
-}
+  .text-center  { text-align: center; }
+  .text-left    { text-align: left; }
+  .text-right   { text-align: right; }
+  .text-sm      { font-size: 0.82rem; }
+  .text-lg      { font-size: 1.2rem; }
+  .text-xl      { font-size: 1.6rem; }
+  .font-bold    { font-weight: bold; }
+  .text-muted   { color: rgba(255,255,255,0.4); }
+  .text-accent  { color: #e94560; }
 
-.m-1 {
-    margin: 10px;
-}
+  .w-full  { width: 100%; }
+  .w-half  { width: 50%; }
+  .rounded { border-radius: 8px; }
+  .rounded-full { border-radius: 50%; }
 
-.m-2 {
-    margin: 20px;
-}
+  @media (min-width: 768px) {
+    .d-md-block { display: block; }
+    .d-md-flex  { display: flex; }
+    .d-md-none  { display: none; }
+    .w-md-half  { width: 50%; }
+  }
 
-/* Text */
-.text-center {
-    text-align: center;
-}
+  @media (min-width: 992px) {
+    .d-lg-grid  { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .d-lg-flex  { display: flex; }
+    .d-lg-none  { display: none; }
+  }
 
-/* Responsive */
-@media (min-width: 768px) {
-    .d-md-block {
-        display: block;
-    }
+  @media (max-width: 767px) {
+    .mobile-hidden { display: none; }
+    .mobile-only   { display: block; }
+  }
+  @media (min-width: 768px) {
+    .mobile-only { display: none; }
+  }
 
-    .d-md-flex {
-        display: flex;
-    }
-}
+  /* ===== PAGE STYLES ===== */
+  .page-title { font-size: 2rem; color: white; margin-bottom: 6px; }
+  .page-title span { color: #e94560; }
 
-@media (min-width: 992px) {
-    .d-lg-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
-}
+  .section {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+  .section-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #e94560;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
 
-@media (max-width: 767px) {
-    .mobile-hidden {
-        display: none;
-    }
-}
+  /* Demo boxes */
+  .demo-box {
+    background: rgba(233,69,96,0.12);
+    border: 1px solid rgba(233,69,96,0.25);
+    border-radius: 8px;
+    padding: 14px 18px;
+    color: rgba(255,255,255,0.75);
+    font-size: 0.88rem;
+  }
+  .demo-box.blue {
+    background: rgba(33,150,243,0.12);
+    border-color: rgba(33,150,243,0.25);
+  }
+  .demo-box.green {
+    background: rgba(76,175,80,0.12);
+    border-color: rgba(76,175,80,0.25);
+  }
+  .demo-box.orange {
+    background: rgba(255,152,0,0.12);
+    border-color: rgba(255,152,0,0.25);
+  }
+
+  .code-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #e94560;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    margin: 3px;
+  }
+
+  .container { max-width: 1100px; margin: auto; }
 </style>
 </head>
-
 <body>
 
 <div class="container">
 
-<h1 class="text-center">Utility Classes</h1>
+  <div class="text-center mb-2">
+    <h1 class="page-title">Responsive <span>Utility Classes</span></h1>
+    <p class="text-muted text-sm">A library of reusable CSS utility classes — resize to see responsive ones activate</p>
+  </div>
 
-<div class="d-lg-grid">
+  <!-- DISPLAY UTILITIES -->
+  <div class="section">
+    <p class="section-label">Display Utilities</p>
+    <div class="d-flex flex-wrap gap-1 mb-2">
+      <span class="code-tag">.d-none</span>
+      <span class="code-tag">.d-block</span>
+      <span class="code-tag">.d-flex</span>
+      <span class="code-tag">.d-grid</span>
+      <span class="code-tag">.d-inline</span>
+      <span class="code-tag">.d-inline-block</span>
+      <span class="code-tag">.d-md-block</span>
+      <span class="code-tag">.d-lg-grid</span>
+      <span class="code-tag">.mobile-hidden</span>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+      <div class="demo-box" style="flex:1;min-width:180px;">
+        <strong class="text-accent">.d-flex</strong> — This container uses flexbox
+      </div>
+      <div class="demo-box blue mobile-hidden" style="flex:1;min-width:180px;">
+        <strong style="color:#64b5f6;">.mobile-hidden</strong> — Hidden on mobile (&lt;768px)
+      </div>
+      <div class="demo-box green mobile-only">
+        <strong style="color:#81c784;">.mobile-only</strong> — Visible only on mobile
+      </div>
+    </div>
+  </div>
 
-<div class="p-2">
-    <h2>Box 1</h2>
-    <p>Responsive utility example.</p>
-</div>
+  <!-- SPACING UTILITIES -->
+  <div class="section">
+    <p class="section-label">Spacing Utilities</p>
+    <div class="d-flex flex-wrap gap-1 mb-2">
+      <span class="code-tag">.p-1</span><span class="code-tag">.p-2</span><span class="code-tag">.p-3</span>
+      <span class="code-tag">.m-1</span><span class="code-tag">.m-2</span>
+      <span class="code-tag">.mb-1</span><span class="code-tag">.mb-2</span>
+      <span class="code-tag">.gap-1</span><span class="code-tag">.gap-2</span>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+      <div class="demo-box p-1" style="flex:1;min-width:140px;"><strong class="text-accent">.p-1</strong> — 10px padding</div>
+      <div class="demo-box p-2" style="flex:1;min-width:140px;"><strong class="text-accent">.p-2</strong> — 20px padding</div>
+      <div class="demo-box p-3" style="flex:1;min-width:140px;"><strong class="text-accent">.p-3</strong> — 30px padding</div>
+    </div>
+  </div>
 
-<div class="p-2">
-    <h2>Box 2</h2>
-    <p>Responsive utility example.</p>
-</div>
+  <!-- TEXT UTILITIES -->
+  <div class="section">
+    <p class="section-label">Typography Utilities</p>
+    <div class="d-flex flex-wrap gap-1 mb-2">
+      <span class="code-tag">.text-center</span><span class="code-tag">.text-sm</span>
+      <span class="code-tag">.text-lg</span><span class="code-tag">.text-xl</span>
+      <span class="code-tag">.font-bold</span><span class="code-tag">.text-muted</span><span class="code-tag">.text-accent</span>
+    </div>
+    <p class="text-sm text-muted mb-1">.text-sm .text-muted — Small muted text</p>
+    <p class="text-lg font-bold mb-1">.text-lg .font-bold — Large bold text</p>
+    <p class="text-xl text-accent font-bold">.text-xl .text-accent — Extra large accent</p>
+  </div>
 
-<div class="p-2">
-    <h2>Box 3</h2>
-    <p>Responsive utility example.</p>
-</div>
-
-</div>
-
-<p class="mobile-hidden">
-    This paragraph is hidden on mobile screens.
-</p>
+  <!-- GRID DEMO -->
+  <div class="section">
+    <p class="section-label">Grid Utility — .d-lg-grid (3 columns on desktop)</p>
+    <div class="d-lg-grid">
+      <div class="demo-box p-2">
+        <strong class="text-accent">Box 1</strong>
+        <p class="text-sm text-muted mt-2">Responsive utility example. On desktop this is a 3-column grid.</p>
+      </div>
+      <div class="demo-box blue p-2">
+        <strong style="color:#64b5f6;">Box 2</strong>
+        <p class="text-sm text-muted mt-2">On tablet and mobile, these stack vertically.</p>
+      </div>
+      <div class="demo-box green p-2">
+        <strong style="color:#81c784;">Box 3</strong>
+        <p class="text-sm text-muted mt-2">The .d-lg-grid class activates at 992px+.</p>
+      </div>
+    </div>
+  </div>
 
 </div>
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f6fb">
+  <title>ShopZone – About</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    .about-hero { padding:clamp(24px,5vw,48px); border-radius:var(--card-radius); background:linear-gradient(135deg,var(--accent),#8b85ff 55%,var(--accent2)); color:white; margin-bottom:22px; }
+    .about-hero h1 { font-size:clamp(1.7rem,4vw,2.5rem); margin:10px 0; }
+    .about-hero p { max-width:680px; line-height:1.7; color:rgba(255,255,255,.85); }
+    .about-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:22px; }
+    .about-card { padding:22px; }
+    .about-card .icon { font-size:1.6rem; margin-bottom:12px; }
+    .about-card h2 { font-size:1rem; margin-bottom:8px; color:var(--text); }
+    .about-card p { color:var(--text2); font-size:.88rem; line-height:1.65; }
+    .about-footer { padding:20px 22px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
+    .about-footer p { color:var(--text2); font-size:.88rem; }
+    .about-link { display:inline-flex; padding:10px 15px; border-radius:10px; color:white; text-decoration:none; background:var(--accent); font-weight:700; font-size:.85rem; }
+    @media(max-width:800px){.about-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:520px){.about-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div id="app-layout" data-page="about" data-title="About"></div>
+  <div class="topbar" id="topbar">
+    <button class="hamburger" id="hamburger" aria-label="Open navigation">☰</button>
+    <div class="topbar-title">About this project</div>
+    <div class="topbar-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle light or dark theme">🌙</button><div class="avatar-btn" aria-label="Muhammad Usman Nazir">UN</div></div>
+  </div>
+  <main class="main-content"><div class="page-body">
+    <section class="about-hero">
+      <span style="font-size:.78rem;text-transform:uppercase;letter-spacing:2px">CS 224L · Web Technologies</span>
+      <h1>ShopZone — Lab 05 &amp; 06</h1>
+      <p>A responsive storefront and admin dashboard built to demonstrate CSS layout techniques, reusable page structure, and accessible light and dark themes. The project connects the lab exercises through one consistent navigation experience.</p>
+    </section>
+    <section class="about-grid" aria-label="Project details">
+      <article class="card about-card"><div class="icon">🎓</div><h2>Submitted by</h2><p>Muhammad Usman Nazir<br>24PWDSC0178 · BS Data Science<br>Semester 5 · Section A</p></article>
+      <article class="card about-card"><div class="icon">🏛️</div><h2>Course &amp; institution</h2><p>CS 224L Web Technologies<br>Department of Computer Science<br>University of Engineering and Technology, Peshawar</p></article>
+      <article class="card about-card"><div class="icon">🧭</div><h2>What you can explore</h2><p>Shop and product cards, sales dashboard, order tables, portfolio, gallery, responsive layouts, and CSS demonstrations.</p></article>
+    </section>
+    <section class="card about-footer"><div><h2 style="font-size:1rem;margin-bottom:4px">Explore the coursework</h2><p>Jump into the storefront or browse the project showcase.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="about-link" href="task08.html">Visit the shop →</a><a class="about-link" href="projects.html">Project showcase →</a></div></section>
+  </div></main>
+  <script src="shared.js"></script><script src="layout.js"></script>
+</body>
+</html>

@@ -3,76 +3,226 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Responsive Breakpoints</title>
-
+<title>Task 16 – Responsive Breakpoints</title>
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-.container {
-    padding: 20px;
-}
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0a0a1a;
+    color: #eee;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
 
-.cards {
+  .page-header { text-align: center; margin-bottom: 40px; }
+  .page-header h1 { font-size: 2rem; color: white; margin-bottom: 8px; }
+  .page-header h1 span { color: #e94560; }
+  .page-header p { color: rgba(255,255,255,0.45); font-size: 0.9rem; }
+
+  /* BREAKPOINT RULER */
+  .ruler {
+    max-width: 1200px;
+    margin: 0 auto 35px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px 25px;
+  }
+  .ruler h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #e94560; margin-bottom: 15px; }
+  .ruler-bar {
+    height: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .ruler-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #e94560, #ff6b6b);
+  }
+  .ruler-labels { display: flex; justify-content: space-between; }
+  .ruler-labels span { font-size: 0.72rem; color: rgba(255,255,255,0.35); }
+
+  /* CURRENT BREAKPOINT INDICATOR */
+  .current-bp {
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    background: rgba(233,69,96,0.1);
+    border: 1px solid rgba(233,69,96,0.3);
+    border-radius: 12px;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .current-bp .dot { width: 10px; height: 10px; background: #e94560; border-radius: 50%; flex-shrink: 0; }
+  .current-bp p { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+  .current-bp strong { color: #e94560; }
+
+  /* CARDS GRID */
+  .container { max-width: 1200px; margin: auto; }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;   /* mobile default */
+    gap: 16px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .card:hover { transform: translateY(-4px); border-color: rgba(233,69,96,0.4); }
+  .card .card-icon { font-size: 2.5rem; margin-bottom: 12px; }
+  .card h3 { color: white; font-size: 1rem; margin-bottom: 6px; }
+  .card p { color: rgba(255,255,255,0.45); font-size: 0.82rem; line-height: 1.5; }
+  .card .card-num {
+    display: inline-block;
+    background: rgba(233,69,96,0.15);
+    color: #e94560;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    line-height: 28px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  /* BREAKPOINT INFO SECTION */
+  .bp-info {
+    max-width: 1200px;
+    margin: 30px auto 0;
     display: grid;
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .bp-row {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
     gap: 15px;
-}
+    flex-wrap: wrap;
+  }
+  .bp-row .bp-icon { font-size: 1.5rem; }
+  .bp-row .bp-name { font-weight: bold; color: white; font-size: 0.9rem; min-width: 120px; }
+  .bp-row .bp-range { color: #e94560; font-size: 0.82rem; font-family: monospace; min-width: 160px; }
+  .bp-row .bp-cols { color: rgba(255,255,255,0.5); font-size: 0.82rem; }
 
-.card {
-    padding: 40px;
-    text-align: center;
-    background: #ddd;
-}
+  /* ===== BREAKPOINTS ===== */
+  @media (min-width: 576px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+  }
 
-/* Small tablets */
-@media (min-width: 576px) {
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+  @media (min-width: 768px) {
+    .cards { grid-template-columns: repeat(3, 1fr); }
+    .bp-info { grid-template-columns: repeat(2, 1fr); }
+  }
 
-/* Tablets */
-@media (min-width: 768px) {
-    .cards {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
+  @media (min-width: 992px) {
+    .cards { grid-template-columns: repeat(4, 1fr); }
+  }
 
-/* Desktop */
-@media (min-width: 992px) {
-    .cards {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-/* Large desktop */
-@media (min-width: 1200px) {
-    .container {
-        max-width: 1200px;
-        margin: auto;
-    }
-}
+  @media (min-width: 1200px) {
+    .container { max-width: 1200px; margin: auto; }
+    .bp-info { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
-
 <body>
+
+<div class="page-header">
+  <h1>Responsive <span>Breakpoints</span></h1>
+  <p>Resize the browser to see the grid change columns at each breakpoint</p>
+</div>
 
 <div class="container">
 
-<h1>Responsive Breakpoints</h1>
+  <div class="ruler">
+    <h3>📏 Breakpoint Scale</h3>
+    <div class="ruler-bar"><div class="ruler-fill" style="width:100%;"></div></div>
+    <div class="ruler-labels">
+      <span>0px</span>
+      <span>576px</span>
+      <span>768px</span>
+      <span>992px</span>
+      <span>1200px+</span>
+    </div>
+  </div>
 
-<div class="cards">
+  <div class="current-bp">
+    <div class="dot"></div>
+    <p>Current layout: <strong>Resize the window</strong> — the card grid below will change from 1 → 2 → 3 → 4 columns as the screen gets wider.</p>
+  </div>
 
-<div class="card">Card 1</div>
-<div class="card">Card 2</div>
-<div class="card">Card 3</div>
-<div class="card">Card 4</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-num">1</div>
+      <div class="card-icon">📱</div>
+      <h3>Mobile</h3>
+      <p>Single column layout for small screens under 576px.</p>
+    </div>
+    <div class="card">
+      <div class="card-num">2</div>
+      <div class="card-icon">📟</div>
+      <h3>Small Tablet</h3>
+      <p>Two columns appear at 576px and above.</p>
+    </div>
+    <div class="card">
+      <div class="card-num">3</div>
+      <div class="card-icon">💻</div>
+      <h3>Tablet</h3>
+      <p>Three columns appear at 768px and above.</p>
+    </div>
+    <div class="card">
+      <div class="card-num">4</div>
+      <div class="card-icon">🖥</div>
+      <h3>Desktop</h3>
+      <p>Four columns appear at 992px and above.</p>
+    </div>
+  </div>
 
-</div>
+  <div class="bp-info" style="margin-top:30px;">
+    <div class="bp-row">
+      <span class="bp-icon">📱</span>
+      <span class="bp-name">Mobile</span>
+      <span class="bp-range">min-width: 0px</span>
+      <span class="bp-cols">1 column</span>
+    </div>
+    <div class="bp-row">
+      <span class="bp-icon">📟</span>
+      <span class="bp-name">Small Tablet</span>
+      <span class="bp-range">min-width: 576px</span>
+      <span class="bp-cols">2 columns</span>
+    </div>
+    <div class="bp-row">
+      <span class="bp-icon">💻</span>
+      <span class="bp-name">Tablet</span>
+      <span class="bp-range">min-width: 768px</span>
+      <span class="bp-cols">3 columns</span>
+    </div>
+    <div class="bp-row">
+      <span class="bp-icon">🖥</span>
+      <span class="bp-name">Desktop</span>
+      <span class="bp-range">min-width: 992px</span>
+      <span class="bp-cols">4 columns</span>
+    </div>
+    <div class="bp-row">
+      <span class="bp-icon">🖥</span>
+      <span class="bp-name">Large Desktop</span>
+      <span class="bp-range">min-width: 1200px</span>
+      <span class="bp-cols">Max-width container</span>
+    </div>
+  </div>
 
 </div>
 

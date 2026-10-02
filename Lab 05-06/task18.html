@@ -3,105 +3,298 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Dark Mode Media Query</title>
-
+<title>Task 18 – Dark Mode & Media Preferences</title>
 <style>
-:root {
-    --background: #ffffff;
-    --text: #222222;
-    --card: #eeeeee;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-* {
-    box-sizing: border-box;
-}
+  /* ===== LIGHT MODE (default) ===== */
+  :root {
+    --bg:        #f0f2f5;
+    --bg2:       #ffffff;
+    --bg3:       #e8eaf0;
+    --text:      #1a1a2e;
+    --text2:     #555555;
+    --text3:     #999999;
+    --accent:    #e94560;
+    --border:    #e0e0e0;
+    --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    --mode-icon: "☀";
+    --mode-label: "Light Mode Active";
+  }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--background);
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
     color: var(--text);
-}
+    min-height: 100vh;
+    transition: background 0.4s, color 0.4s;
+  }
 
-.container {
+  /* HEADER */
+  header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: var(--card-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-logo { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+  .header-logo span { color: var(--accent); }
+  .mode-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    color: var(--text2);
+  }
+  .mode-indicator .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #f5a623;
+  }
+
+  /* MAIN */
+  .container {
     max-width: 900px;
-    margin: auto;
-    padding: 40px 20px;
-}
+    margin: 40px auto;
+    padding: 0 20px;
+  }
 
-.card {
-    padding: 30px;
-    margin-top: 20px;
-    background: var(--card);
-    border-radius: 10px;
-}
+  .page-title { font-size: 1.8rem; color: var(--text); margin-bottom: 6px; }
+  .page-title span { color: var(--accent); }
+  .page-sub { color: var(--text3); font-size: 0.9rem; margin-bottom: 35px; }
 
-/* User's system prefers dark mode */
-@media (prefers-color-scheme: dark) {
+  /* CARDS */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .card-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: rgba(233,69,96,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .card h2 { font-size: 1.1rem; color: var(--text); margin-bottom: 3px; }
+  .card-tag {
+    display: inline-block;
+    background: rgba(233,69,96,0.1);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .card p { color: var(--text2); font-size: 0.9rem; line-height: 1.7; }
 
+  /* PREFERENCE GRID */
+  .pref-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .pref-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: var(--card-shadow);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .pref-card .pref-icon { font-size: 2rem; margin-bottom: 10px; }
+  .pref-card h3 { font-size: 0.95rem; color: var(--text); margin-bottom: 6px; }
+  .pref-card p { font-size: 0.82rem; color: var(--text3); line-height: 1.5; }
+  .pref-card code {
+    display: inline-block;
+    background: var(--bg3);
+    color: var(--accent);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    margin-top: 8px;
+    font-family: monospace;
+  }
+
+  /* STATUS BAR */
+  .status-bar {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: var(--card-shadow);
+  }
+  .status-item { display: flex; align-items: center; gap: 8px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .status-item span { font-size: 0.82rem; color: var(--text2); }
+
+  /* ===== DARK MODE ===== */
+  @media (prefers-color-scheme: dark) {
     :root {
-        --background: #121212;
-        --text: #f5f5f5;
-        --card: #222222;
+      --bg:        #0a0a1a;
+      --bg2:       #111128;
+      --bg3:       #1a1a2e;
+      --text:      #f0f0f0;
+      --text2:     #aaaaaa;
+      --text3:     #666666;
+      --border:    rgba(255,255,255,0.08);
+      --card-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
-}
+    .mode-indicator .dot { background: #7c83fd; }
+  }
 
-/* Reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-
+  /* ===== REDUCED MOTION ===== */
+  @media (prefers-reduced-motion: reduce) {
     * {
-        scroll-behavior: auto;
-        transition: none !important;
-        animation: none !important;
+      transition: none !important;
+      animation: none !important;
     }
-}
+  }
 
-/* Portrait orientation */
-@media (orientation: portrait) {
+  /* ===== PORTRAIT ===== */
+  @media (orientation: portrait) {
+    .pref-grid { grid-template-columns: 1fr; }
+    .container { margin-top: 25px; }
+  }
 
-    .container {
-        padding-top: 25px;
+  /* ===== LANDSCAPE ===== */
+  @media (orientation: landscape) {
+    .container { max-width: 1100px; }
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    :root {
+      --bg: white;
+      --bg2: white;
+      --bg3: #f5f5f5;
+      --text: black;
+      --text2: #333;
+      --text3: #666;
+      --border: #ccc;
+      --card-shadow: none;
     }
-}
+    header { position: static; }
+  }
 
-/* Landscape orientation */
-@media (orientation: landscape) {
-
-    .container {
-        max-width: 1100px;
-    }
-}
+  @media (max-width: 600px) {
+    .pref-grid { grid-template-columns: 1fr; }
+    header { padding: 15px 20px; }
+    .status-bar { flex-direction: column; align-items: flex-start; }
+  }
 </style>
 </head>
-
 <body>
+
+<header>
+  <div class="header-logo">Media<span>Prefs</span></div>
+  <div class="mode-indicator">
+    <div class="dot"></div>
+    <span>Theme adapts to your OS preference</span>
+  </div>
+</header>
 
 <div class="container">
 
-<h1>Media Preference Demonstration</h1>
+  <h1 class="page-title">Media <span>Preference</span> Queries</h1>
+  <p class="page-sub">This page automatically adapts to your system settings — dark mode, reduced motion, and orientation.</p>
 
-<div class="card">
+  <!-- DARK MODE CARD -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon">🌙</div>
+      <div>
+        <span class="card-tag">prefers-color-scheme</span>
+        <h2>Dark Mode Support</h2>
+      </div>
+    </div>
+    <p>This page detects your operating system's color scheme preference. If your system is set to <strong>dark mode</strong>, the entire page switches to a dark theme automatically — background, text, cards, and borders all change using CSS custom properties (variables).</p>
+    <p style="margin-top:12px;">Try switching your OS between light and dark mode to see the effect in real time.</p>
+  </div>
 
-<h2>Dark Mode</h2>
+  <!-- PREFERENCE GRID -->
+  <div class="pref-grid">
 
-<p>
-If your operating system is configured for dark mode,
-this page automatically changes its appearance.
-</p>
+    <div class="pref-card">
+      <div class="pref-icon">⚡</div>
+      <h3>Reduced Motion</h3>
+      <p>If you have enabled "Reduce Motion" in your OS accessibility settings, all CSS transitions and animations are disabled on this page.</p>
+      <code>@media (prefers-reduced-motion: reduce)</code>
+    </div>
 
-</div>
+    <div class="pref-card">
+      <div class="pref-icon">📱</div>
+      <h3>Orientation</h3>
+      <p>The layout adjusts based on whether your device is in portrait or landscape orientation. The grid changes from 2 columns to 1 in portrait mode.</p>
+      <code>@media (orientation: portrait)</code>
+    </div>
 
-<div class="card">
+    <div class="pref-card">
+      <div class="pref-icon">🖨</div>
+      <h3>Print Media</h3>
+      <p>When you print this page (Ctrl+P), a clean white print-friendly version is applied, removing dark backgrounds and shadows.</p>
+      <code>@media print</code>
+    </div>
 
-<h2>Responsive Preferences</h2>
+    <div class="pref-card">
+      <div class="pref-icon">🎨</div>
+      <h3>CSS Variables</h3>
+      <p>All colors are defined as CSS custom properties in <code style="display:inline;">:root</code>. The dark mode query simply overrides these variables — no duplicate CSS needed.</p>
+      <code>:root &#123; --bg: #fff; &#125;</code>
+    </div>
 
-<p>
-This page also demonstrates reduced-motion and
-orientation media queries.
-</p>
+  </div>
 
-</div>
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div class="status-item">
+      <div class="status-dot" style="background:#4caf50;"></div>
+      <span>Color scheme detection: Active</span>
+    </div>
+    <div class="status-item">
+      <div class="status-dot" style="background:#2196f3;"></div>
+      <span>Orientation detection: Active</span>
+    </div>
+    <div class="status-item">
+      <div class="status-dot" style="background:#ff9800;"></div>
+      <span>Reduced motion: Listening</span>
+    </div>
+    <div class="status-item">
+      <div class="status-dot" style="background:#9c27b0;"></div>
+      <span>Print styles: Ready</span>
+    </div>
+  </div>
 
 </div>
 
