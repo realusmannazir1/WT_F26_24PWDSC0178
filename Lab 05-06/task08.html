@@ -147,8 +147,8 @@
       <div class="filter-card">
         <h3>Price Range</h3>
         <div class="price-range">
-          <input type="range" min="0" max="1000" value="800">
-          <div class="range-labels"><span>$0</span><span>$800</span></div>
+          <input id="maxPrice" type="range" min="0" max="1000" value="800" aria-label="Maximum product price">
+          <div class="range-labels"><span>$0</span><span id="priceLimit">$800</span></div>
         </div>
       </div>
 
@@ -172,16 +172,16 @@
         </div>
       </div>
 
-      <button class="btn btn-primary" style="width:100%;">Apply Filters</button>
-      <button class="btn btn-ghost" style="width:100%;">Clear All</button>
+      <button class="btn btn-primary" id="applyFilters" type="button" style="width:100%;">Apply Filters</button>
+      <button class="btn btn-ghost" id="clearFilters" type="button" style="width:100%;">Clear All</button>
     </div>
 
     <!-- PRODUCTS -->
     <div>
       <div class="products-header">
-        <div><h2>All Products</h2><p>Showing 8 of 320 products</p></div>
+        <div><h2>All Products</h2><p id="productSummary" aria-live="polite">Loading demo catalog…</p></div>
         <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-          <select class="sort-select">
+          <select class="sort-select" aria-label="Sort products">
             <option>Sort: Featured</option>
             <option>Price: Low to High</option>
             <option>Price: High to Low</option>
@@ -363,31 +363,75 @@
 <script src="shared.js"></script>
 <script>
   (() => {
-    let count = 0;
+    let count = 0;try{count=Number(localStorage.getItem('shopzone-cart-count')||0)}catch{}
     let toastTimer;
     const cart = document.getElementById('cartCount');
     const toast = document.getElementById('cartToast');
-    document.querySelectorAll('.add-cart-btn').forEach((button) => {
-      button.addEventListener('click', () => {
-        count += 1;
-        cart.querySelector('span').textContent = count;
-        cart.setAttribute('aria-label', `Shopping cart, ${count} ${count === 1 ? 'item' : 'items'}`);
-        button.textContent = '✓ Added';
-        window.setTimeout(() => { button.textContent = '🛒 Add to Cart'; }, 1100);
-        toast.textContent = `Added to cart · ${count} ${count === 1 ? 'item' : 'items'} total`;
-        toast.style.opacity = '1';
-        toast.style.transform = 'translateY(0)';
-        window.clearTimeout(toastTimer);
-        toastTimer = window.setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(8px)'; }, 1800);
-      });
-    });
+    const grid = document.querySelector('.products-grid');
+    const summary = document.getElementById('productSummary');
     const search = document.querySelector('.topbar-search input');
-    search?.addEventListener('input', () => {
-      const query = search.value.trim().toLowerCase();
-      document.querySelectorAll('.prod-card').forEach((card) => {
-        card.hidden = !card.textContent.toLowerCase().includes(query);
-      });
+    const priceInput = document.getElementById('maxPrice');
+    const sortSelect = document.querySelector('.sort-select');
+    const readProducts = () => { try { const value=JSON.parse(localStorage.getItem('shopzone-products')||'[]'); return Array.isArray(value)?value:[]; } catch { return []; } };
+    const requestMain = (action) => new Promise(resolve => {
+      if (window.parent === window) { resolve(null); return; }
+      const requestId=`${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      const finish=value=>{window.removeEventListener('message',listener);window.clearTimeout(timer);resolve(value)};
+      const listener=event=>{if(event.source===window.parent&&event.data?.channel==='shopzone:api:response'&&event.data.requestId===requestId)finish(event.data.ok?event.data.value:null)};
+      const timer=window.setTimeout(()=>finish(null),350);
+      window.addEventListener('message',listener);
+      window.parent.postMessage({channel:'shopzone:api',action,requestId},'*');
     });
+    const createProductCard = product => {
+      const card=document.createElement('article');card.className='prod-card';card.dataset.localProduct='true';
+      const imageWrap=document.createElement('div');imageWrap.className='prod-img-wrap';
+      const image=document.createElement('img');image.src=`https://picsum.photos/400/300?random=${encodeURIComponent(String(product.id||product.name).slice(-8))}`;image.alt=product.name;image.loading='lazy';imageWrap.appendChild(image);
+      const body=document.createElement('div');body.className='prod-body';
+      const category=document.createElement('div');category.className='prod-cat';category.textContent=product.category;
+      const name=document.createElement('div');name.className='prod-name';name.textContent=product.name;
+      const stars=document.createElement('div');stars.className='prod-stars';stars.textContent='★★★★★ ';const reviews=document.createElement('span');reviews.textContent='New listing';stars.appendChild(reviews);
+      const priceRow=document.createElement('div');priceRow.className='prod-price-row';const price=document.createElement('span');price.className='prod-price';price.textContent=`$${Number(product.price).toFixed(2)}`;priceRow.appendChild(price);
+      const add=document.createElement('button');add.className='add-cart-btn';add.type='button';add.textContent='🛒 Add to Cart';
+      body.append(category,name,stars,priceRow,add);card.append(imageWrap,body);return card;
+    };
+    const loadSavedProducts = async () => {
+      let products=await requestMain('products:list');if(!Array.isArray(products))products=readProducts();
+      const savedIds=new Set([...grid.querySelectorAll('[data-product-id]')].map(card=>card.dataset.productId));
+      products.forEach(product=>{if(!product||!product.id||savedIds.has(product.id))return;const card=createProductCard(product);card.dataset.productId=product.id;grid.prepend(card)});
+      applyCatalog();
+    };
+    const categoryGroup = value => ['electronics','audio','wearables','accessories','displays'].includes(value.toLowerCase())?'electronics':value.toLowerCase();
+    function applyCatalog(){
+      const selected=[...document.querySelectorAll('.filter-option input[id^="c"]:checked')].map(input=>input.nextElementSibling?.textContent.trim().toLowerCase()).filter(Boolean);
+      const maxPrice=Number(priceInput.value);const query=search.value.trim().toLowerCase();
+      const thresholds=[];if(document.getElementById('r5').checked)thresholds.push(5);if(document.getElementById('r4').checked)thresholds.push(4);if(document.getElementById('r3').checked)thresholds.push(3);
+      const cards=[...grid.querySelectorAll('.prod-card')];cards.forEach(card=>{
+        const category=card.querySelector('.prod-cat')?.textContent.trim()||'';const price=Number((card.querySelector('.prod-price')?.textContent||'').replace(/[^\d.]/g,''));const rating=(card.querySelector('.prod-stars')?.textContent.match(/★/g)||[]).length;
+        const categoryOk=!selected.length||selected.includes(categoryGroup(category));const ratingOk=!thresholds.length||thresholds.some(min=>rating>=min);const queryOk=!query||card.textContent.toLowerCase().includes(query);card.hidden=!(categoryOk&&price<=maxPrice&&ratingOk&&queryOk);
+      });
+      const visible=cards.filter(card=>!card.hidden);const sort=sortSelect.selectedIndex;
+      if(sort===1||sort===2){visible.sort((a,b)=>{const pa=Number(a.querySelector('.prod-price').textContent.replace(/[^\d.]/g,''));const pb=Number(b.querySelector('.prod-price').textContent.replace(/[^\d.]/g,''));return sort===1?pa-pb:pb-pa})}
+      else if(sort===4){visible.sort((a,b)=>(b.querySelector('.prod-stars').textContent.match(/★/g)||[]).length-(a.querySelector('.prod-stars').textContent.match(/★/g)||[]).length)}
+      else if(sort===3){visible.sort((a,b)=>Number(Boolean(b.dataset.localProduct))-Number(Boolean(a.dataset.localProduct)))}
+      visible.forEach(card=>grid.appendChild(card));
+      summary.textContent=`Showing ${visible.length} of ${cards.length} demo products`;
+      document.getElementById('priceLimit').textContent=`$${maxPrice}`;
+    }
+    cart.querySelector('span').textContent=count;cart.setAttribute('aria-label',`Shopping cart, ${count} ${count===1?'item':'items'}`);
+    document.addEventListener('click',event=>{
+      const button=event.target.closest('.add-cart-btn');if(!button)return;
+      count+=1;cart.querySelector('span').textContent=count;cart.setAttribute('aria-label',`Shopping cart, ${count} ${count===1?'item':'items'}`);
+      try{localStorage.setItem('shopzone-cart-count',String(count))}catch{}
+      button.textContent='✓ Added';window.setTimeout(()=>{button.textContent='🛒 Add to Cart'},1100);
+      toast.textContent=`Added to cart · ${count} ${count===1?'item':'items'} total`;toast.style.opacity='1';toast.style.transform='translateY(0)';window.clearTimeout(toastTimer);toastTimer=window.setTimeout(()=>{toast.style.opacity='0';toast.style.transform='translateY(8px)'},1800);
+    });
+    search.setAttribute('aria-label','Search products');search.addEventListener('input',applyCatalog);
+    document.getElementById('applyFilters').addEventListener('click',applyCatalog);
+    document.getElementById('clearFilters').addEventListener('click',()=>{document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(input=>{input.checked=input.id.startsWith('r')});priceInput.value='1000';search.value='';sortSelect.selectedIndex=0;applyCatalog()});
+    priceInput.addEventListener('input',()=>document.getElementById('priceLimit').textContent=`$${priceInput.value}`);
+    sortSelect.addEventListener('change',applyCatalog);
+    document.querySelectorAll('.swatch').forEach(swatch=>{swatch.setAttribute('role','button');swatch.setAttribute('tabindex','0');swatch.setAttribute('aria-pressed',String(swatch.classList.contains('active')));const activate=()=>{document.querySelectorAll('.swatch').forEach(item=>{item.classList.remove('active');item.setAttribute('aria-pressed','false')});swatch.classList.add('active');swatch.setAttribute('aria-pressed','true')};swatch.addEventListener('click',activate);swatch.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();activate()}})});
+    loadSavedProducts();
   })();
 </script>
 </body>

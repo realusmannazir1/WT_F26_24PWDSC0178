@@ -67,6 +67,22 @@
       function select(button,updateHash=true){if(!button)return;const id=button.dataset.id;buttons.forEach(item=>{const active=item===button;item.classList.toggle('active',active);if(active)item.setAttribute('aria-current','page');else item.removeAttribute('aria-current')});title.textContent=button.dataset.title;let frame=frames.get(id);if(!frame){frame=document.createElement('iframe');frame.className='task-frame';frame.title=button.dataset.title;frame.src=button.dataset.file;frame.loading='lazy';frameHost.appendChild(frame);frames.set(id,frame)}frames.forEach((page,key)=>{page.hidden=key!==id});if(updateHash&&location.hash!=='#'+id)history.replaceState(null,'','#'+id);closeMenu()}
       buttons.forEach(button=>button.addEventListener('click',()=>select(button)));
       const initial=buttons.find(button=>button.dataset.id===location.hash.slice(1))||buttons.find(button=>button.dataset.id==='task09');select(initial,false);
+      const dataKey='shopzone-products';
+      const storedProducts=()=>{try{const value=JSON.parse(localStorage.getItem(dataKey)||'[]');return Array.isArray(value)?value:[]}catch{return[]}};
+      window.addEventListener('message',event=>{
+        if(![...frames.values()].some(frame=>frame.contentWindow===event.source))return;
+        const message=event.data;if(!message||message.channel!=='shopzone:api'||typeof message.requestId!=='string')return;
+        const reply=(ok,value)=>event.source.postMessage({channel:'shopzone:api:response',requestId:message.requestId,ok,value},'*');
+        try{
+          if(message.action==='products:list'){reply(true,storedProducts());return}
+          if(message.action==='products:create'){
+            const item=message.payload;
+            if(!item||typeof item.name!=='string'||item.name.trim().length<1||item.name.length>70||typeof item.category!=='string'||item.category.length>40||!Number.isFinite(Number(item.price))||Number(item.price)<=0){reply(false,null);return}
+            const products=storedProducts();const product={id:`p-${Date.now()}-${Math.random().toString(16).slice(2,7)}`,name:item.name.trim(),category:item.category,price:Number(item.price),createdAt:new Date().toISOString()};products.unshift(product);localStorage.setItem(dataKey,JSON.stringify(products));reply(true,product);return;
+          }
+          reply(false,null);
+        }catch{reply(false,null)}
+      });
       document.getElementById('taskSearch').addEventListener('input',event=>{const q=event.target.value.trim().toLowerCase();buttons.forEach(button=>{button.hidden=!button.textContent.toLowerCase().includes(q)})});
       document.getElementById('menuButton').addEventListener('click',()=>{sidebar.classList.add('open');overlay.classList.add('open')});overlay.addEventListener('click',closeMenu);
       const root=document.documentElement,themeButton=document.getElementById('themeButton');let theme=localStorage.getItem('main-theme')||'light';root.dataset.theme=theme;const paint=()=>{themeButton.textContent=root.dataset.theme==='dark'?'☀️':'🌙'};paint();themeButton.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('main-theme',root.dataset.theme);paint()});
