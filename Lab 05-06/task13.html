@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ShopZone – Portfolio</title>
 <link rel="stylesheet" href="theme.css">
+<script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.dataset.embed='true';</script>
 <style>
   /* HERO */
   .portfolio-hero {
@@ -101,7 +102,7 @@
   <div class="topbar-search"><span>🔍</span><input type="text" placeholder="Search..."></div>
   <div class="topbar-actions">
     <div class="icon-btn">🔔<div class="notif-dot"></div></div>
-    <div class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</div>
+    <button type="button" class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle light or dark theme">🌙</button>
     <div class="avatar-btn">UN</div>
   </div>
 </div>

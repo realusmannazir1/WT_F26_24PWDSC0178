@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ShopZone – Dashboard</title>
 <link rel="stylesheet" href="theme.css">
+<script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.dataset.embed='true';</script>
 <style>
   /* ---- CHART BARS ---- */
   .chart-area { display: flex; align-items: flex-end; gap: 8px; height: 160px; padding: 0 4px; }
@@ -123,7 +124,7 @@
   <div class="topbar-actions">
     <div class="icon-btn" title="Notifications">🔔<div class="notif-dot"></div></div>
     <div class="icon-btn" title="Messages">💬</div>
-    <div class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</div>
+    <button type="button" class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle light or dark theme">🌙</button>
     <div class="avatar-btn" title="Profile">UN</div>
   </div>
 </div>
@@ -139,7 +140,7 @@
       <p style="color:var(--text3); font-size:0.88rem;">Store overview · Demo data is saved in this browser.</p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      <button class="btn btn-ghost btn-sm">📅 Oct 6, 2026</button>
+      <button class="btn btn-ghost btn-sm" type="button" aria-label="Dashboard date">📅 Oct 2, 2026</button>
       <button class="btn btn-primary btn-sm" id="newProductBtn" type="button">+ New Product</button>
     </div>
   </div>
@@ -211,7 +212,7 @@
           <div style="width:10px;height:10px;border-radius:50%;background:var(--accent);"></div> Revenue
         </div>
         <div style="display:flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text3);">
-          <div style="width:10px;height:10px;border-radius:50%;background:var(--accent2);"></div> Orders
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--accent2);"></div> Peak periods
         </div>
       </div>
     </div>
@@ -257,7 +258,7 @@
             <td><strong style="color:var(--accent);">#ORD-1042</strong></td>
             <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://picsum.photos/36/36?random=50" class="order-img" alt=""><span>Pro Laptop X1</span></div></td>
             <td><div style="display:flex;align-items:center;gap:8px;"><div class="av" style="background:linear-gradient(135deg,#6c63ff,#8b85ff);">AH</div>Ali Hassan</div></td>
-            <td>Oct 6, 2026</td>
+            <td>Oct 2, 2026</td>
             <td><strong>$800</strong></td>
             <td><span class="badge badge-green">Delivered</span></td>
             <td><button class="btn btn-ghost btn-sm">View</button></td>
@@ -266,7 +267,7 @@
             <td><strong style="color:var(--accent);">#ORD-1041</strong></td>
             <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://picsum.photos/36/36?random=51" class="order-img" alt=""><span>Wireless Headphones</span></div></td>
             <td><div style="display:flex;align-items:center;gap:8px;"><div class="av" style="background:linear-gradient(135deg,#ff6584,#ff8fa3);">SK</div>Sara Khan</div></td>
-            <td>Oct 5, 2026</td>
+            <td>Oct 1, 2026</td>
             <td><strong>$120</strong></td>
             <td><span class="badge badge-orange">Shipping</span></td>
             <td><button class="btn btn-ghost btn-sm">View</button></td>
@@ -275,7 +276,7 @@
             <td><strong style="color:var(--accent);">#ORD-1040</strong></td>
             <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://picsum.photos/36/36?random=52" class="order-img" alt=""><span>Smart Watch Pro</span></div></td>
             <td><div style="display:flex;align-items:center;gap:8px;"><div class="av" style="background:linear-gradient(135deg,#43e97b,#38f9d7);">UN</div>Usman Nazir</div></td>
-            <td>Oct 4, 2026</td>
+            <td>Sep 30, 2026</td>
             <td><strong>$150</strong></td>
             <td><span class="badge badge-green">Delivered</span></td>
             <td><button class="btn btn-ghost btn-sm">View</button></td>
@@ -284,7 +285,7 @@
             <td><strong style="color:var(--accent);">#ORD-1039</strong></td>
             <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://picsum.photos/36/36?random=53" class="order-img" alt=""><span>Mechanical Keyboard</span></div></td>
             <td><div style="display:flex;align-items:center;gap:8px;"><div class="av" style="background:linear-gradient(135deg,#f39c12,#f1c40f);">AM</div>Ahmed Malik</div></td>
-            <td>Oct 3, 2026</td>
+            <td>Sep 29, 2026</td>
             <td><strong>$60</strong></td>
             <td><span class="badge badge-red">Cancelled</span></td>
             <td><button class="btn btn-ghost btn-sm">View</button></td>
@@ -293,7 +294,7 @@
             <td><strong style="color:var(--accent);">#ORD-1038</strong></td>
             <td><div style="display:flex;align-items:center;gap:10px;"><img src="https://picsum.photos/36/36?random=54" class="order-img" alt=""><span>Gaming Mouse</span></div></td>
             <td><div style="display:flex;align-items:center;gap:8px;"><div class="av" style="background:linear-gradient(135deg,#3498db,#2980b9);">FR</div>Fatima Rehman</div></td>
-            <td>Oct 2, 2026</td>
+            <td>Sep 28, 2026</td>
             <td><strong>$45</strong></td>
             <td><span class="badge badge-blue">Processing</span></td>
             <td><button class="btn btn-ghost btn-sm">View</button></td>
@@ -379,7 +380,7 @@
   const baseProductCount = 320;
   const monthly = {labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],revenue:[4200,5600,3800,6900,5100,7900,6100,7300,5500,6800,4700,7600]};
   const weekly = {labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],revenue:[620,840,710,1050,930,1420,1180]};
-  const readProducts = () => { try { const value=JSON.parse(localStorage.getItem(storageKey)||'[]'); return Array.isArray(value)?value:[]; } catch { return []; } };
+  const readProducts = () => { try { const value=JSON.parse(localStorage.getItem(storageKey)||'[]'); return Array.isArray(value)?value.filter(product=>product&&typeof product.id==='string'&&typeof product.name==='string'&&typeof product.category==='string'&&Number.isFinite(Number(product.price))&&Number(product.price)>0):[]; } catch { return []; } };
   const requestMain = (action,payload) => new Promise(resolve=>{
     if(window.parent===window){resolve(null);return}
     const requestId=`${Date.now()}-${Math.random().toString(16).slice(2)}`;

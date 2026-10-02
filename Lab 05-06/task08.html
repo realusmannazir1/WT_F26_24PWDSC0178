@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ShopZone – Shop</title>
 <link rel="stylesheet" href="theme.css">
+<script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.dataset.embed='true';</script>
 <style>
   .shop-layout { display: grid; grid-template-columns: 260px 1fr; gap: 24px; }
 
@@ -109,8 +110,8 @@
   </div>
   <div class="topbar-actions">
     <div class="icon-btn">🔔<div class="notif-dot"></div></div>
-    <div class="icon-btn" id="cartCount" aria-label="Shopping cart, 0 items">🛒 <span>0</span></div>
-    <div class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</div>
+    <button type="button" class="icon-btn" id="cartCount" aria-label="Shopping cart, 0 items" title="Shopping cart">🛒 <span>0</span></button>
+    <button type="button" class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle light or dark theme">🌙</button>
     <div class="avatar-btn">UN</div>
   </div>
 </div>
@@ -372,7 +373,9 @@
     const search = document.querySelector('.topbar-search input');
     const priceInput = document.getElementById('maxPrice');
     const sortSelect = document.querySelector('.sort-select');
-    const readProducts = () => { try { const value=JSON.parse(localStorage.getItem('shopzone-products')||'[]'); return Array.isArray(value)?value:[]; } catch { return []; } };
+    const pager = document.querySelector('.pagination');
+    let currentPage=1;
+    const readProducts = () => { try { const value=JSON.parse(localStorage.getItem('shopzone-products')||'[]'); return Array.isArray(value)?value.filter(product=>product&&typeof product.id==='string'&&typeof product.name==='string'&&typeof product.category==='string'&&Number.isFinite(Number(product.price))&&Number(product.price)>0):[]; } catch { return []; } };
     const requestMain = (action) => new Promise(resolve => {
       if (window.parent === window) { resolve(null); return; }
       const requestId=`${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -413,9 +416,15 @@
       if(sort===1||sort===2){visible.sort((a,b)=>{const pa=Number(a.querySelector('.prod-price').textContent.replace(/[^\d.]/g,''));const pb=Number(b.querySelector('.prod-price').textContent.replace(/[^\d.]/g,''));return sort===1?pa-pb:pb-pa})}
       else if(sort===4){visible.sort((a,b)=>(b.querySelector('.prod-stars').textContent.match(/★/g)||[]).length-(a.querySelector('.prod-stars').textContent.match(/★/g)||[]).length)}
       else if(sort===3){visible.sort((a,b)=>Number(Boolean(b.dataset.localProduct))-Number(Boolean(a.dataset.localProduct)))}
-      visible.forEach(card=>grid.appendChild(card));
-      summary.textContent=`Showing ${visible.length} of ${cards.length} demo products`;
+      const pageSize=6;const pages=Math.max(1,Math.ceil(visible.length/pageSize));currentPage=Math.min(currentPage,pages);const start=(currentPage-1)*pageSize;const end=Math.min(start+pageSize,visible.length);
+      visible.forEach((card,index)=>{grid.appendChild(card);card.hidden=index<start||index>=end});
+      summary.textContent=visible.length?`Showing ${start+1}–${end} of ${visible.length} demo products`:'No products match these filters';
       document.getElementById('priceLimit').textContent=`$${maxPrice}`;
+      pager.replaceChildren();
+      const pageButton=(label,page,disabled=false,active=false)=>{const button=document.createElement('button');button.type='button';button.className=`page-btn${active?' active':''}`;button.textContent=label;button.disabled=disabled;button.setAttribute('aria-label',label==='‹'?'Previous page':label==='›'?'Next page':`Page ${page}`);if(active)button.setAttribute('aria-current','page');button.addEventListener('click',()=>{currentPage=page;applyCatalog()});return button};
+      pager.append(pageButton('‹',Math.max(1,currentPage-1),currentPage===1));
+      for(let page=1;page<=pages;page++)pager.append(pageButton(String(page),page,false,page===currentPage));
+      pager.append(pageButton('›',Math.min(pages,currentPage+1),currentPage===pages));
     }
     cart.querySelector('span').textContent=count;cart.setAttribute('aria-label',`Shopping cart, ${count} ${count===1?'item':'items'}`);
     document.addEventListener('click',event=>{
@@ -427,7 +436,7 @@
     });
     search.setAttribute('aria-label','Search products');search.addEventListener('input',applyCatalog);
     document.getElementById('applyFilters').addEventListener('click',applyCatalog);
-    document.getElementById('clearFilters').addEventListener('click',()=>{document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(input=>{input.checked=input.id.startsWith('r')});priceInput.value='1000';search.value='';sortSelect.selectedIndex=0;applyCatalog()});
+    document.getElementById('clearFilters').addEventListener('click',()=>{document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(input=>{input.checked=input.id.startsWith('r')});priceInput.value='1000';search.value='';sortSelect.selectedIndex=0;currentPage=1;applyCatalog()});
     priceInput.addEventListener('input',()=>document.getElementById('priceLimit').textContent=`$${priceInput.value}`);
     sortSelect.addEventListener('change',applyCatalog);
     document.querySelectorAll('.swatch').forEach(swatch=>{swatch.setAttribute('role','button');swatch.setAttribute('tabindex','0');swatch.setAttribute('aria-pressed',String(swatch.classList.contains('active')));const activate=()=>{document.querySelectorAll('.swatch').forEach(item=>{item.classList.remove('active');item.setAttribute('aria-pressed','false')});swatch.classList.add('active');swatch.setAttribute('aria-pressed','true')};swatch.addEventListener('click',activate);swatch.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();activate()}})});

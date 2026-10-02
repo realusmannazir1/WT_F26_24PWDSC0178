@@ -2,7 +2,8 @@
 
 (function () {
   /* ---- THEME ---- */
-  const saved = localStorage.getItem('theme') || 'light';
+  let saved = 'light';
+  try { saved = localStorage.getItem('theme') || 'light'; } catch { /* Use the default theme when storage is disabled. */ }
   document.documentElement.setAttribute('data-theme', saved);
 
   function updateThemeBtn() {
@@ -15,9 +16,18 @@
     const cur = document.documentElement.getAttribute('data-theme');
     const next = cur === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
+    try { localStorage.setItem('theme', next); } catch { /* The selected theme still applies for this page. */ }
     updateThemeBtn();
   };
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window.parent || event.data?.channel !== 'shopzone:theme') return;
+    const theme = event.data.theme;
+    if (theme !== 'light' && theme !== 'dark') return;
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('theme', theme); } catch (error) { /* Keep the page theme even when storage is unavailable. */ }
+    updateThemeBtn();
+  });
 
   document.addEventListener('DOMContentLoaded', function () {
     updateThemeBtn();

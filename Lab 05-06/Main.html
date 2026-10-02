@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f4f6fb">
+  <link rel="icon" href="data:,">
   <title>ShopZone · Lab 05 &amp; 06</title>
   <style>
     :root{color-scheme:light;--bg:#f4f6fb;--surface:#fff;--surface2:#eef0f7;--ink:#1a1d35;--muted:#747993;--line:#e2e5f0;--accent:#6c63ff;--pink:#ff6584;--nav:#1e2140;--navink:#c8cde8;--shadow:0 12px 38px rgba(36,39,79,.10)}
@@ -14,19 +15,21 @@
     .nav-search{margin:15px 13px 8px;position:relative}.nav-search input{width:100%;height:38px;padding:0 12px 0 35px;border-radius:10px;border:1px solid #ffffff18;background:#ffffff0b;color:#fff;outline:none;font-size:12px}.nav-search input:focus{border-color:#918aff}.nav-search span{position:absolute;left:12px;top:10px;opacity:.65;font-size:14px}.nav-list{overflow:auto;padding:0 10px 18px;scrollbar-width:thin;scrollbar-color:#ffffff25 transparent}.nav-group{padding:12px 10px 6px;color:#7d84a6;text-transform:uppercase;font-weight:700;font-size:10px;letter-spacing:1.2px}.nav-link{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:11px;text-align:left;padding:10px 11px;margin:2px 0;border-radius:9px;color:var(--navink);cursor:pointer;font-size:12.5px;transition:background .15s,color .15s}.nav-link:hover{background:#ffffff10;color:white}.nav-link.active{background:linear-gradient(100deg,#6c63ff,#8178ff);color:white;box-shadow:0 5px 14px #6c63ff38}.nav-icon{width:20px;text-align:center;font-size:15px}.nav-number{margin-left:auto;color:#8f95b5;font-size:10px;font-variant-numeric:tabular-nums}.nav-link.active .nav-number{color:#ffffffb3}.sidebar-bottom{margin-top:auto;border-top:1px solid #ffffff12;padding:14px 17px;color:#8e94b6;font-size:10px;line-height:1.55}
     .workspace{margin-left:258px;min-height:100vh}.topbar{height:70px;position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 25px;gap:15px}.menu-button{display:none}.current{min-width:0;flex:1}.current small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.current strong{font-size:14px}.top-actions{display:flex;align-items:center;gap:9px}.top-button{height:36px;min-width:36px;border:1px solid var(--line);background:var(--surface2);border-radius:10px;display:grid;place-items:center;cursor:pointer}.top-button:hover{border-color:var(--accent)}.user-chip{display:flex;align-items:center;gap:9px;padding-left:7px}.user-avatar{width:33px;height:33px;border-radius:11px;display:grid;place-items:center;color:white;font-size:11px;font-weight:800;background:linear-gradient(135deg,#6c63ff,#ff6584)}.user-name{font-size:11px;font-weight:700}.user-role{font-size:9px;color:var(--muted);margin-top:2px}
     .content{padding:18px 20px 24px;height:calc(100vh - 70px);min-height:440px}.frame-wrap{height:100%;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}.task-frame{width:100%;height:100%;border:0;display:block;background:var(--bg)}.task-frame[hidden]{display:none}.overlay{display:none}
+    .skip-link{position:fixed;left:12px;top:10px;z-index:60;padding:10px 14px;border-radius:9px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);transform:translateY(-160%)}.skip-link:focus{transform:translateY(0)}
     @media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.workspace{margin-left:0}.menu-button{display:grid}.overlay.open{display:block;position:fixed;inset:0;background:#08091499;z-index:25}.content{padding:14px;height:calc(100vh - 64px)}.topbar{height:64px;padding:0 14px}}
     @media(max-width:520px){.topbar{gap:9px}.user-copy{display:none}.content{padding:9px;height:calc(100vh - 58px);min-height:390px}.topbar{height:58px}.current strong{font-size:12px}.top-button{height:34px;min-width:34px}.frame-wrap{border-radius:10px}}
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#frameHost">Skip to selected task</a>
   <aside class="sidebar" id="sidebar" aria-label="Lab pages">
     <div class="brand"><div class="brand-mark">S</div><div class="brand-copy"><b>ShopZone</b><small>CS 224L · Lab 05 &amp; 06</small></div></div>
     <label class="nav-search"><span>⌕</span><input id="taskSearch" type="search" placeholder="Find a task…" aria-label="Find a task"></label>
-    <nav class="nav-list" id="navList">
+    <nav class="nav-list" id="navList" aria-label="Lab tasks and project pages">
       <div class="nav-group">Store</div>
-      <button class="nav-link active" data-id="task09" data-title="Store Dashboard" data-file="task09.html"><span class="nav-icon">📊</span>Dashboard<span class="nav-number">09</span></button>
-      <button class="nav-link" data-id="task08" data-title="Online Shop" data-file="task08.html"><span class="nav-icon">🛍️</span>Shop<span class="nav-number">08</span></button>
-      <button class="nav-link" data-id="task14" data-title="Orders &amp; Records" data-file="task14.html"><span class="nav-icon">📋</span>Orders &amp; Tables<span class="nav-number">14</span></button>
+      <button class="nav-link active" data-id="task09" data-title="Store Dashboard" data-file="task09.html?embed=1"><span class="nav-icon">📊</span>Dashboard<span class="nav-number">09</span></button>
+      <button class="nav-link" data-id="task08" data-title="Online Shop" data-file="task08.html?embed=1"><span class="nav-icon">🛍️</span>Shop<span class="nav-number">08</span></button>
+      <button class="nav-link" data-id="task14" data-title="Orders &amp; Records" data-file="task14.html?embed=1"><span class="nav-icon">📋</span>Orders &amp; Tables<span class="nav-number">14</span></button>
       <div class="nav-group">Lab tasks · 01–06</div>
       <button class="nav-link" data-id="task01" data-title="Display Properties" data-file="task01.html"><span class="nav-icon">🎨</span>Display Properties<span class="nav-number">01</span></button>
       <button class="nav-link" data-id="task02" data-title="Float Magazine" data-file="task02.html"><span class="nav-icon">📰</span>Float Magazine<span class="nav-number">02</span></button>
@@ -40,14 +43,14 @@
       <button class="nav-link" data-id="task11" data-title="Grid Magazine" data-file="task11.html"><span class="nav-icon">🗞️</span>Grid Magazine<span class="nav-number">11</span></button>
       <button class="nav-link" data-id="task12" data-title="Registration Form" data-file="task12.html"><span class="nav-icon">📝</span>Registration Form<span class="nav-number">12</span></button>
       <div class="nav-group">Lab tasks · 13–18</div>
-      <button class="nav-link" data-id="task13" data-title="Student Portfolio" data-file="task13.html"><span class="nav-icon">💼</span>Portfolio<span class="nav-number">13</span></button>
+      <button class="nav-link" data-id="task13" data-title="Student Portfolio" data-file="task13.html?embed=1"><span class="nav-icon">💼</span>Portfolio<span class="nav-number">13</span></button>
       <button class="nav-link" data-id="task15" data-title="Mobile-First Landing Page" data-file="task15.html"><span class="nav-icon">🚀</span>Landing Page<span class="nav-number">15</span></button>
       <button class="nav-link" data-id="task16" data-title="Responsive Breakpoints" data-file="task16.html"><span class="nav-icon">📐</span>Breakpoints<span class="nav-number">16</span></button>
       <button class="nav-link" data-id="task17" data-title="Responsive Utility Classes" data-file="task17.html"><span class="nav-icon">🧩</span>Utility Classes<span class="nav-number">17</span></button>
       <button class="nav-link" data-id="task18" data-title="Dark Mode &amp; Preferences" data-file="task18.html"><span class="nav-icon">🌙</span>Theme Preferences<span class="nav-number">18</span></button>
       <div class="nav-group">Project</div>
-      <button class="nav-link" data-id="projects" data-title="Project Showcase" data-file="projects.html"><span class="nav-icon">✨</span>Showcase</button>
-      <button class="nav-link" data-id="about" data-title="About This Project" data-file="about.html"><span class="nav-icon">ℹ️</span>About</button>
+      <button class="nav-link" data-id="projects" data-title="Project Showcase" data-file="projects.html?embed=1"><span class="nav-icon">✨</span>Showcase</button>
+      <button class="nav-link" data-id="about" data-title="About This Project" data-file="about.html?embed=1"><span class="nav-icon">ℹ️</span>About</button>
     </nav>
     <div class="sidebar-bottom">Muhammad Usman Nazir · 24PWDSC0178<br>University of Engineering &amp; Technology, Peshawar</div>
   </aside>
@@ -58,34 +61,112 @@
       <div class="current"><small>LAB 05 &amp; 06 <span aria-hidden="true">/</span> WEB TECHNOLOGIES</small><strong id="pageTitle">Store Dashboard</strong></div>
       <div class="top-actions"><button class="top-button" id="themeButton" aria-label="Switch color theme" title="Switch color theme">🌙</button><div class="user-chip"><div class="user-avatar">UN</div><div class="user-copy"><div class="user-name">Usman Nazir</div><div class="user-role">BS Data Science · Semester 5</div></div></div></div>
     </header>
-    <section class="content" aria-label="Selected lab task"><div class="frame-wrap" id="frameHost"></div></section>
+    <section class="content" aria-label="Selected lab task"><div class="frame-wrap" id="frameHost" tabindex="-1"></div></section>
   </main>
   <script>
-    (()=>{
-      const sidebar=document.getElementById('sidebar'),overlay=document.getElementById('overlay'),frameHost=document.getElementById('frameHost'),title=document.getElementById('pageTitle'),buttons=[...document.querySelectorAll('.nav-link')],frames=new Map();
-      const closeMenu=()=>{sidebar.classList.remove('open');overlay.classList.remove('open')};
-      function select(button,updateHash=true){if(!button)return;const id=button.dataset.id;buttons.forEach(item=>{const active=item===button;item.classList.toggle('active',active);if(active)item.setAttribute('aria-current','page');else item.removeAttribute('aria-current')});title.textContent=button.dataset.title;let frame=frames.get(id);if(!frame){frame=document.createElement('iframe');frame.className='task-frame';frame.title=button.dataset.title;frame.src=button.dataset.file;frame.loading='lazy';frameHost.appendChild(frame);frames.set(id,frame)}frames.forEach((page,key)=>{page.hidden=key!==id});if(updateHash&&location.hash!=='#'+id)history.replaceState(null,'','#'+id);closeMenu()}
-      buttons.forEach(button=>button.addEventListener('click',()=>select(button)));
-      const initial=buttons.find(button=>button.dataset.id===location.hash.slice(1))||buttons.find(button=>button.dataset.id==='task09');select(initial,false);
-      const dataKey='shopzone-products';
-      const storedProducts=()=>{try{const value=JSON.parse(localStorage.getItem(dataKey)||'[]');return Array.isArray(value)?value:[]}catch{return[]}};
-      window.addEventListener('message',event=>{
-        if(![...frames.values()].some(frame=>frame.contentWindow===event.source))return;
-        const message=event.data;if(!message||message.channel!=='shopzone:api'||typeof message.requestId!=='string')return;
-        const reply=(ok,value)=>event.source.postMessage({channel:'shopzone:api:response',requestId:message.requestId,ok,value},'*');
-        try{
-          if(message.action==='products:list'){reply(true,storedProducts());return}
-          if(message.action==='products:create'){
-            const item=message.payload;
-            if(!item||typeof item.name!=='string'||item.name.trim().length<1||item.name.length>70||typeof item.category!=='string'||item.category.length>40||!Number.isFinite(Number(item.price))||Number(item.price)<=0){reply(false,null);return}
-            const products=storedProducts();const product={id:`p-${Date.now()}-${Math.random().toString(16).slice(2,7)}`,name:item.name.trim(),category:item.category,price:Number(item.price),createdAt:new Date().toISOString()};products.unshift(product);localStorage.setItem(dataKey,JSON.stringify(products));reply(true,product);return;
-          }
-          reply(false,null);
-        }catch{reply(false,null)}
+    (() => {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      const frameHost = document.getElementById('frameHost');
+      const pageTitle = document.getElementById('pageTitle');
+      const navButtons = [...document.querySelectorAll('.nav-link')];
+      const frames = new Map();
+      const root = document.documentElement;
+      const themeButton = document.getElementById('themeButton');
+      const productKey = 'shopzone-products';
+      let theme = 'light';
+
+      try { theme = localStorage.getItem('main-theme') || 'light'; } catch {}
+      root.dataset.theme = theme;
+      const paintThemeButton = () => { themeButton.textContent = theme === 'dark' ? '☀️' : '🌙'; };
+      const setTheme = (value) => {
+        theme = value;
+        root.dataset.theme = theme;
+        try { localStorage.setItem('main-theme', theme); } catch {}
+        frames.forEach(frame => frame.contentWindow.postMessage({channel:'shopzone:theme',theme}, '*'));
+        paintThemeButton();
+      };
+      const closeMenu = () => { sidebar.classList.remove('open'); overlay.classList.remove('open'); };
+
+      function selectPage(button, updateHash = true) {
+        if (!button) return;
+        const id = button.dataset.id;
+        navButtons.forEach(item => {
+          const active = item === button;
+          item.classList.toggle('active', active);
+          if (active) item.setAttribute('aria-current', 'page');
+          else item.removeAttribute('aria-current');
+        });
+        pageTitle.textContent = button.dataset.title;
+        let frame = frames.get(id);
+        if (!frame) {
+          frame = document.createElement('iframe');
+          frame.className = 'task-frame';
+          frame.title = button.dataset.title;
+          frame.src = button.dataset.file;
+          frame.loading = 'lazy';
+          frameHost.appendChild(frame);
+          frames.set(id, frame);
+          frame.addEventListener('load', () => {
+            frame.contentWindow.postMessage({channel:'shopzone:theme',theme}, '*');
+            try {
+              frame.contentDocument.addEventListener('click', event => {
+                const link = event.target.closest('a[href]');
+                if (!link) return;
+                const url = new URL(link.href, frame.src);
+                if (url.origin !== location.origin) return;
+                const file = url.pathname.split('/').pop().toLowerCase();
+                const currentFile = new URL(frame.src, location.href).pathname.split('/').pop().toLowerCase();
+                if (file === currentFile && !file.endsWith('main.html')) return;
+                let destination = url.hash.slice(1);
+                if (file === 'main.html' && !destination) destination = 'task09';
+                const target = navButtons.find(item => item.dataset.id === destination || item.dataset.file.split('?')[0].toLowerCase() === file);
+                if (target) { event.preventDefault(); selectPage(target); }
+              }, true);
+            } catch { /* Local file origins may block iframe document access; normal links still work. */ }
+          });
+        }
+        frames.forEach((page, key) => { page.hidden = key !== id; });
+        if (updateHash && location.hash !== `#${id}`) history.replaceState(null, '', `#${id}`);
+        closeMenu();
+      }
+
+      navButtons.forEach(button => button.addEventListener('click', () => selectPage(button)));
+      const initial = navButtons.find(button => button.dataset.id === location.hash.slice(1)) || navButtons.find(button => button.dataset.id === 'task09');
+      selectPage(initial, false);
+      themeButton.addEventListener('click', () => setTheme(theme === 'dark' ? 'light' : 'dark'));
+      document.getElementById('taskSearch').addEventListener('input', event => {
+        const query = event.target.value.trim().toLowerCase();
+        navButtons.forEach(button => { button.hidden = !button.textContent.toLowerCase().includes(query); });
       });
-      document.getElementById('taskSearch').addEventListener('input',event=>{const q=event.target.value.trim().toLowerCase();buttons.forEach(button=>{button.hidden=!button.textContent.toLowerCase().includes(q)})});
-      document.getElementById('menuButton').addEventListener('click',()=>{sidebar.classList.add('open');overlay.classList.add('open')});overlay.addEventListener('click',closeMenu);
-      const root=document.documentElement,themeButton=document.getElementById('themeButton');let theme=localStorage.getItem('main-theme')||'light';root.dataset.theme=theme;const paint=()=>{themeButton.textContent=root.dataset.theme==='dark'?'☀️':'🌙'};paint();themeButton.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('main-theme',root.dataset.theme);paint()});
+      document.getElementById('menuButton').addEventListener('click', () => { sidebar.classList.add('open'); overlay.classList.add('open'); });
+      overlay.addEventListener('click', closeMenu);
+
+      const readProducts = () => {
+        try { const products = JSON.parse(localStorage.getItem(productKey) || '[]'); return Array.isArray(products) ? products.filter(product => product && typeof product.id === 'string' && typeof product.name === 'string' && typeof product.category === 'string' && Number.isFinite(Number(product.price)) && Number(product.price) > 0) : []; }
+        catch { return []; }
+      };
+      window.addEventListener('message', event => {
+        if (![...frames.values()].some(frame => frame.contentWindow === event.source)) return;
+        const message = event.data;
+        if (!message || message.channel !== 'shopzone:api' || typeof message.requestId !== 'string') return;
+        const reply = (ok, value) => event.source.postMessage({channel:'shopzone:api:response',requestId:message.requestId,ok,value}, '*');
+        try {
+          if (message.action === 'products:list') { reply(true, readProducts()); return; }
+          if (message.action === 'products:create') {
+            const item = message.payload;
+            if (!item || typeof item.name !== 'string' || !item.name.trim() || item.name.length > 70 || typeof item.category !== 'string' || item.category.length > 40 || !Number.isFinite(Number(item.price)) || Number(item.price) <= 0) { reply(false, null); return; }
+            const products = readProducts();
+            const product = {id:`p-${Date.now()}-${Math.random().toString(16).slice(2,7)}`,name:item.name.trim(),category:item.category,price:Number(item.price),createdAt:new Date().toISOString()};
+            products.unshift(product);
+            localStorage.setItem(productKey, JSON.stringify(products));
+            reply(true, product);
+            return;
+          }
+          reply(false, null);
+        } catch { reply(false, null); }
+      });
+      paintThemeButton();
     })();
   </script>
 </body>

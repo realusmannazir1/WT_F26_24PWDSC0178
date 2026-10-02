@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ShopZone – Orders</title>
 <link rel="stylesheet" href="theme.css">
+<script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.dataset.embed='true';</script>
 <style>
   .filter-bar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
   .filter-tab { padding: 8px 18px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg2); color: var(--text2); font-size: 0.85rem; cursor: pointer; transition: background 0.2s, color 0.2s; }
@@ -81,7 +82,7 @@
   <div class="topbar-search"><span>🔍</span><input type="text" placeholder="Search orders..."></div>
   <div class="topbar-actions">
     <div class="icon-btn">🔔<div class="notif-dot"></div></div>
-    <div class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</div>
+    <button type="button" class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle light or dark theme">🌙</button>
     <div class="avatar-btn">UN</div>
   </div>
 </div>
@@ -120,14 +121,14 @@
         </div>
       </div>
       <div class="filter-bar">
-        <button class="filter-tab active">All (2,540)</button>
-        <button class="filter-tab">Delivered (1,980)</button>
-        <button class="filter-tab">Shipping (412)</button>
-        <button class="filter-tab">Pending (100)</button>
-        <button class="filter-tab">Cancelled (148)</button>
+        <button class="filter-tab active" type="button" data-status="all" aria-pressed="true">All</button>
+        <button class="filter-tab" type="button" data-status="delivered" aria-pressed="false">Delivered</button>
+        <button class="filter-tab" type="button" data-status="shipping" aria-pressed="false">Shipping</button>
+        <button class="filter-tab" type="button" data-status="pending" aria-pressed="false">Pending</button>
+        <button class="filter-tab" type="button" data-status="cancelled" aria-pressed="false">Cancelled</button>
         <div class="search-input">
           <span style="color:var(--text3);">🔍</span>
-          <input type="text" placeholder="Search by order ID...">
+          <input id="orderSearch" type="search" placeholder="Search by order, product, or customer…" aria-label="Search orders">
         </div>
       </div>
     </div>
@@ -136,7 +137,7 @@
       <table>
         <thead>
           <tr>
-            <th><input type="checkbox" style="accent-color:var(--accent);"></th>
+            <th><input id="selectAllOrders" type="checkbox" aria-label="Select all visible orders" style="accent-color:var(--accent);"></th>
             <th>Order ID</th>
             <th>Product</th>
             <th>Customer</th>
@@ -153,7 +154,7 @@
             <td><strong style="color:var(--accent);">#ORD-1042</strong></td>
             <td><div class="order-product"><img src="https://picsum.photos/38/38?random=80" alt=""><div><h4>Pro Laptop X1</h4><p>Electronics</p></div></div></td>
             <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#6c63ff,#8b85ff);">AH</div><div><h4>Ali Hassan</h4><p>ali@email.com</p></div></div></td>
-            <td>Oct 6, 2026</td>
+            <td>Oct 2, 2026</td>
             <td class="amount-cell">$800.00</td>
             <td><span class="badge badge-green">Paid</span></td>
             <td><span class="badge badge-green">Delivered</span></td>
@@ -164,7 +165,7 @@
             <td><strong style="color:var(--accent);">#ORD-1041</strong></td>
             <td><div class="order-product"><img src="https://picsum.photos/38/38?random=81" alt=""><div><h4>Wireless Headphones</h4><p>Audio</p></div></div></td>
             <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#ff6584,#ff8fa3);">SK</div><div><h4>Sara Khan</h4><p>sara@email.com</p></div></div></td>
-            <td>Oct 5, 2026</td>
+            <td>Oct 1, 2026</td>
             <td class="amount-cell">$120.00</td>
             <td><span class="badge badge-green">Paid</span></td>
             <td><span class="badge badge-orange">Shipping</span></td>
@@ -175,7 +176,7 @@
             <td><strong style="color:var(--accent);">#ORD-1040</strong></td>
             <td><div class="order-product"><img src="https://picsum.photos/38/38?random=82" alt=""><div><h4>Smart Watch Pro</h4><p>Wearables</p></div></div></td>
             <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#43e97b,#38f9d7);">UN</div><div><h4>Usman Nazir</h4><p>usman@uet.edu.pk</p></div></div></td>
-            <td>Oct 4, 2026</td>
+            <td>Sep 30, 2026</td>
             <td class="amount-cell">$150.00</td>
             <td><span class="badge badge-green">Paid</span></td>
             <td><span class="badge badge-green">Delivered</span></td>
@@ -186,7 +187,7 @@
             <td><strong style="color:var(--accent);">#ORD-1039</strong></td>
             <td><div class="order-product"><img src="https://picsum.photos/38/38?random=83" alt=""><div><h4>Mechanical Keyboard</h4><p>Accessories</p></div></div></td>
             <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#f39c12,#f1c40f);">AM</div><div><h4>Ahmed Malik</h4><p>ahmed@email.com</p></div></div></td>
-            <td>Oct 3, 2026</td>
+            <td>Sep 29, 2026</td>
             <td class="amount-cell">$60.00</td>
             <td><span class="badge badge-red">Refunded</span></td>
             <td><span class="badge badge-red">Cancelled</span></td>
@@ -197,7 +198,7 @@
             <td><strong style="color:var(--accent);">#ORD-1038</strong></td>
             <td><div class="order-product"><img src="https://picsum.photos/38/38?random=84" alt=""><div><h4>Gaming Mouse Pro</h4><p>Accessories</p></div></div></td>
             <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#3498db,#2980b9);">FR</div><div><h4>Fatima Rehman</h4><p>fatima@email.com</p></div></div></td>
-            <td>Oct 2, 2026</td>
+            <td>Sep 28, 2026</td>
             <td class="amount-cell">$45.00</td>
             <td><span class="badge badge-orange">Pending</span></td>
             <td><span class="badge badge-blue">Processing</span></td>
@@ -208,7 +209,7 @@
             <td><strong style="color:var(--accent);">#ORD-1037</strong></td>
             <td><div class="order-product"><img src="https://picsum.photos/38/38?random=85" alt=""><div><h4>4K Monitor 27"</h4><p>Displays</p></div></div></td>
             <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#9b59b6,#8e44ad);">ZA</div><div><h4>Zain Ahmad</h4><p>zain@email.com</p></div></div></td>
-            <td>Oct 1, 2026</td>
+            <td>Sep 27, 2026</td>
             <td class="amount-cell">$350.00</td>
             <td><span class="badge badge-green">Paid</span></td>
             <td><span class="badge badge-green">Delivered</span></td>
@@ -219,7 +220,7 @@
             <td><strong style="color:var(--accent);">#ORD-1036</strong></td>
             <td><div class="order-product"><img src="https://picsum.photos/38/38?random=86" alt=""><div><h4>ProTab 12 — 256GB</h4><p>Tablets</p></div></div></td>
             <td><div class="customer-cell"><div class="av" style="background:linear-gradient(135deg,#e74c3c,#c0392b);">MK</div><div><h4>Maria Khan</h4><p>maria@email.com</p></div></div></td>
-            <td>Sep 30, 2026</td>
+            <td>Sep 26, 2026</td>
             <td class="amount-cell">$480.00</td>
             <td><span class="badge badge-green">Paid</span></td>
             <td><span class="badge badge-orange">Shipping</span></td>
@@ -230,14 +231,8 @@
     </div>
 
     <div class="table-footer-bar">
-      <p>Showing 7 of 2,540 orders</p>
-      <div class="pagination">
-        <button class="page-btn">‹</button>
-        <button class="page-btn active">1</button>
-        <button class="page-btn">2</button>
-        <button class="page-btn">3</button>
-        <button class="page-btn">›</button>
-      </div>
+      <p id="ordersSummary" aria-live="polite">Showing sample orders</p>
+      <div class="pagination" id="ordersPagination" aria-label="Order pages"></div>
     </div>
   </div>
 
@@ -245,5 +240,36 @@
 </div>
 
 <script src="shared.js"></script>
+<script>
+(() => {
+  const rows=[...document.querySelectorAll('.table-wrap tbody tr')];
+  const tabs=[...document.querySelectorAll('.filter-tab')];
+  const search=document.getElementById('orderSearch');
+  const summary=document.getElementById('ordersSummary');
+  const pager=document.getElementById('ordersPagination');
+  const selectAll=document.getElementById('selectAllOrders');
+  const pageSize=5;let selectedStatus='all';let page=1;
+  const statusOf=row=>{const status=row.cells[7]?.textContent.trim().toLowerCase()||'';return status==='processing'?'pending':status};
+  const matchesStatus=(row,status)=>status==='all'||statusOf(row)===status;
+  function render(){
+    const query=search.value.trim().toLowerCase();
+    const matches=rows.filter(row=>matchesStatus(row,selectedStatus)&&(!query||row.textContent.toLowerCase().includes(query)));
+    const pages=Math.max(1,Math.ceil(matches.length/pageSize));page=Math.min(page,pages);
+    const start=(page-1)*pageSize;const end=Math.min(start+pageSize,matches.length);
+    rows.forEach(row=>{row.hidden=true});matches.forEach((row,index)=>{row.hidden=index<start||index>=end});
+    summary.textContent=matches.length?`Showing ${start+1}–${end} of ${matches.length} sample orders`:'No sample orders match your search';
+    selectAll.checked=false;selectAll.indeterminate=false;
+    tabs.forEach(tab=>{const key=tab.dataset.status;const count=rows.filter(row=>matchesStatus(row,key)).length;tab.textContent=`${key==='all'?'All':key[0].toUpperCase()+key.slice(1)} (${count})`;const active=selectedStatus===key;tab.classList.toggle('active',active);tab.setAttribute('aria-pressed',String(active))});
+    pager.replaceChildren();
+    const addPageButton=(label,nextPage,disabled=false,active=false)=>{const button=document.createElement('button');button.type='button';button.className=`page-btn${active?' active':''}`;button.textContent=label;button.disabled=disabled;button.setAttribute('aria-label',label==='‹'?'Previous page':label==='›'?'Next page':`Page ${nextPage}`);if(active)button.setAttribute('aria-current','page');button.addEventListener('click',()=>{page=nextPage;render()});pager.appendChild(button)};
+    addPageButton('‹',Math.max(1,page-1),page===1);for(let i=1;i<=pages;i++)addPageButton(String(i),i,false,i===page);addPageButton('›',Math.min(pages,page+1),page===pages);
+  }
+  tabs.forEach(tab=>tab.addEventListener('click',()=>{selectedStatus=tab.dataset.status;page=1;render()}));
+  search.addEventListener('input',()=>{page=1;render()});
+  selectAll.addEventListener('change',()=>{rows.filter(row=>!row.hidden).forEach(row=>{const box=row.querySelector('input[type="checkbox"]');if(box)box.checked=selectAll.checked})});
+  rows.forEach(row=>{const id=row.cells[1]?.textContent.trim()||'order';const box=row.querySelector('input[type="checkbox"]');if(box)box.setAttribute('aria-label',`Select order ${id}`)});
+  render();
+})();
+</script>
 </body>
 </html>
