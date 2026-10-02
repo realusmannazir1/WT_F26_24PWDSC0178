@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6fb">
+  <title>UET · Labs 03 &amp; 04</title>
+  <style>
+    :root{color-scheme:light;--bg:#f4f6fb;--surface:#fff;--soft:#eef0f7;--ink:#1a1d35;--muted:#747993;--line:#e2e5f0;--accent:#6c63ff;--pink:#ff6584;--nav:#1e2140;--navink:#c8cde8;--shadow:0 12px 38px rgba(36,39,79,.1)}
+    [data-theme=dark]{color-scheme:dark;--bg:#0d0f1e;--surface:#151829;--soft:#1e2140;--ink:#e8eaf6;--muted:#9299b7;--line:rgba(255,255,255,.09);--accent:#918aff;--pink:#ff7995;--nav:#090b17;--navink:#b6bdd8;--shadow:0 12px 38px rgba(0,0,0,.28)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;transition:background .2s,color .2s}button{font:inherit;color:inherit}
+    .sidebar{position:fixed;inset:0 auto 0 0;width:258px;background:var(--nav);color:var(--navink);z-index:30;display:flex;flex-direction:column;transition:transform .25s ease}.brand{height:78px;padding:0 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #ffffff14;flex:none}.brand-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:white;font-size:18px;font-weight:800;background:linear-gradient(135deg,#756bff,#ff6584);box-shadow:0 5px 18px #6c63ff55}.brand b{display:block;color:#fff;font-size:15px}.brand small{display:block;color:#8e94b6;font-size:11px;margin-top:3px}
+    .nav-list{overflow:auto;padding:12px 10px 18px}.nav-group{padding:12px 10px 6px;color:#7d84a6;text-transform:uppercase;font-weight:700;font-size:10px;letter-spacing:1.2px}.nav-link{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:11px;text-align:left;padding:10px 11px;margin:2px 0;border-radius:9px;color:var(--navink);cursor:pointer;font-size:12.5px}.nav-link:hover{background:#ffffff10;color:white}.nav-link.active{background:linear-gradient(100deg,#6c63ff,#8178ff);color:white;box-shadow:0 5px 14px #6c63ff38}.nav-link:focus-visible,.top-button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}.nav-icon{width:20px;text-align:center;font-size:15px}.nav-number{margin-left:auto;color:#8f95b5;font-size:10px}.nav-link.active .nav-number{color:#ffffffb3}.sidebar-bottom{margin-top:auto;border-top:1px solid #ffffff12;padding:14px 17px;color:#8e94b6;font-size:10px;line-height:1.55}
+    .workspace{margin-left:258px;min-height:100vh;transition:margin-left .25s ease}.topbar{height:70px;position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 25px;gap:15px}.top-button{height:36px;min-width:36px;border:1px solid var(--line);background:var(--soft);border-radius:10px;display:grid;place-items:center;cursor:pointer}.top-button:hover{border-color:var(--accent)}.menu-button{font-size:20px;line-height:1}.current{min-width:0;flex:1}.current small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.current strong{font-size:14px}.top-actions{display:flex;align-items:center;gap:9px}.avatar{width:33px;height:33px;border-radius:11px;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:800;background:linear-gradient(135deg,#6c63ff,#ff6584)}
+    .content{padding:18px 20px 24px;height:calc(100vh - 70px);min-height:440px}.frame-wrap{height:100%;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}iframe{width:100%;height:100%;border:0;display:block;background:white}iframe[hidden]{display:none}.dashboard{height:100%;overflow:auto;padding:clamp(20px,4vw,40px);background:radial-gradient(ellipse at 95% 0%,#766cff18,transparent 32%),var(--surface)}.hero{position:relative;overflow:hidden;padding:clamp(24px,4vw,40px);border-radius:22px;color:#fff;background:radial-gradient(ellipse at 85% 15%,#ffffff40,transparent 36%),linear-gradient(120deg,#554be8,#756bff 58%,#e65d91);box-shadow:0 18px 40px #5b4fdc38;animation:appear .55s ease both}.hero:after{content:"";position:absolute;width:230px;height:230px;right:-50px;top:-145px;border:1px solid #ffffff50;border-radius:50%;box-shadow:0 0 0 24px #ffffff0a,0 0 0 48px #ffffff0a}.eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#ffffffc9}.hero h1{max-width:600px;margin:14px 0 10px;font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.08;letter-spacing:-.04em}.hero p{max-width:620px;margin:0;color:#ffffffd9;line-height:1.65}.hero .jump{display:inline-flex;margin-top:22px;padding:11px 15px;border-radius:10px;background:white;color:#554be8;text-decoration:none;font-weight:800}.overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:22px 0}.overview-stat,.task-card{border:1px solid var(--line);border-radius:15px;background:var(--surface);box-shadow:0 6px 22px #24274f09}.overview-stat{padding:18px}.overview-stat b{display:block;font-size:1.35rem}.overview-stat span{color:var(--muted);font-size:.8rem}.dashboard h2{margin:26px 0 12px;font-size:1.05rem}.task-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.task-card{padding:16px;text-align:left;cursor:pointer;transition:transform .18s,border-color .18s}.task-card:hover{transform:translateY(-3px);border-color:var(--accent)}.task-card span{font-size:1.35rem}.task-card b{display:block;margin:10px 0 4px;font-size:.9rem}.task-card small{color:var(--muted)}@keyframes appear{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.overlay{display:none}.skip-link{position:fixed;left:12px;top:10px;z-index:60;padding:10px 14px;border-radius:9px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);transform:translateY(-160%)}.skip-link:focus{transform:translateY(0)}
+    @media(min-width:901px){.sidebar.closed{transform:translateX(-100%)}body.sidebar-collapsed .workspace{margin-left:0}}
+    @media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.workspace{margin-left:0}.overlay.open{display:block;position:fixed;inset:0;background:#08091499;z-index:25}.content{padding:14px;height:calc(100vh - 64px)}.topbar{height:64px;padding:0 14px}}
+    @media(max-width:700px){.task-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.overview-grid{grid-template-columns:1fr 1fr 1fr;gap:8px}.overview-stat{padding:12px}.overview-stat b{font-size:1.1rem}}
+    @media(max-width:520px){.content{padding:9px;height:calc(100vh - 58px);min-height:390px}.topbar{height:58px;padding:0 10px;gap:9px}.current small{font-size:9px}.current strong{font-size:12px}.top-button{height:34px;min-width:34px}.frame-wrap{border-radius:10px}.task-grid{grid-template-columns:1fr}.overview-grid{grid-template-columns:1fr}.dashboard{padding:16px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}.hero{animation:none}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#frameHost">Skip to selected lab</a>
+  <aside class="sidebar" id="sidebar" aria-label="Lab 03 and 04 navigation">
+    <div class="brand"><div class="brand-mark" aria-hidden="true">U</div><div><b>UET · Web Labs</b><small>CSS Design · Labs 03 &amp; 04</small></div></div>
+    <nav class="nav-list" aria-label="Lab tasks">
+      <button class="nav-link active" data-id="dashboard" data-title="Lab Dashboard"><span class="nav-icon">📊</span>Dashboard<span class="nav-number">⌂</span></button>
+      <div class="nav-group">Lab 03 · Styling</div>
+      <button class="nav-link" data-id="task1" data-title="CSS Selectors" data-file="task1.html"><span class="nav-icon">🎯</span>CSS Selectors<span class="nav-number">01</span></button>
+      <button class="nav-link" data-id="task2" data-title="Typography Showcase" data-file="task2.html"><span class="nav-icon">🔤</span>Typography<span class="nav-number">02</span></button>
+      <button class="nav-link" data-id="task3" data-title="Background Gallery" data-file="task3.html"><span class="nav-icon">🌈</span>Backgrounds<span class="nav-number">03</span></button>
+      <button class="nav-link" data-id="task4" data-title="Image Portfolio" data-file="task4.html"><span class="nav-icon">🖼️</span>Image Portfolio<span class="nav-number">04</span></button>
+      <button class="nav-link" data-id="task5" data-title="Button Collection" data-file="task5.html"><span class="nav-icon">🔘</span>Buttons<span class="nav-number">05</span></button>
+      <button class="nav-link" data-id="task6" data-title="Student Registration" data-file="task6.html"><span class="nav-icon">📝</span>Registration Form<span class="nav-number">06</span></button>
+      <div class="nav-group">Lab 04 · Components</div>
+      <button class="nav-link" data-id="task7" data-title="Product Card" data-file="task7.html"><span class="nav-icon">🪪</span>Product Card<span class="nav-number">07</span></button>
+      <button class="nav-link" data-id="task8" data-title="Navigation Styling" data-file="task8.html"><span class="nav-icon">🧭</span>Navigation Menu<span class="nav-number">08</span></button>
+      <button class="nav-link" data-id="task9" data-title="CSS Transform Gallery" data-file="task9.html"><span class="nav-icon">🧊</span>Transforms<span class="nav-number">09</span></button>
+      <button class="nav-link" data-id="task10" data-title="Advanced CSS Effects" data-file="task10.html"><span class="nav-icon">✨</span>CSS Effects<span class="nav-number">10</span></button>
+      <button class="nav-link" data-id="task11" data-title="Personal Portfolio" data-file="task11.html"><span class="nav-icon">💼</span>Portfolio<span class="nav-number">11</span></button>
+      <button class="nav-link" data-id="task12" data-title="Course Schedule" data-file="task12.html"><span class="nav-icon">📅</span>Course Schedule<span class="nav-number">12</span></button>
+    </nav>
+    <div class="sidebar-bottom">Muhammad Usman Nazir · 24PWDSC0178<br>University of Engineering &amp; Technology, Peshawar</div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+  <main class="workspace">
+    <header class="topbar">
+      <button class="top-button menu-button" id="menuButton" type="button" aria-label="Close task navigation" aria-controls="sidebar" aria-expanded="true" title="Toggle navigation">⋮</button>
+      <div class="current"><small>LAB 03 &amp; 04 <span aria-hidden="true">/</span> WEB TECHNOLOGIES</small><strong id="pageTitle">CSS Selectors</strong></div>
+      <div class="top-actions"><button class="top-button" id="themeButton" type="button" aria-label="Switch color theme" title="Switch color theme">🌙</button><div class="avatar" aria-label="Usman Nazir">UN</div></div>
+    </header>
+    <section class="content" aria-label="Selected lab task"><div class="frame-wrap" id="frameHost" tabindex="-1">
+      <section class="dashboard" id="dashboardPanel" aria-labelledby="welcomeTitle">
+        <div class="hero"><div class="eyebrow">UET · Web Technologies · Labs 03 &amp; 04</div><h1 id="welcomeTitle">Style ideas. Build better interfaces.</h1><p>Explore twelve hands-on pages covering CSS selectors, typography, backgrounds, forms, components, transforms, and responsive styling. Choose any activity from the sidebar or jump in here.</p><a class="jump" href="#task1" data-go="task1">Start with CSS Selectors&nbsp; →</a></div>
+        <div class="overview-grid" aria-label="Lab summary"><div class="overview-stat"><b>12</b><span>Interactive lab pages</span></div><div class="overview-stat"><b>02</b><span>Connected lab sets</span></div><div class="overview-stat"><b>CSS</b><span>Design and components</span></div></div>
+        <h2>Explore the activities</h2>
+        <div class="task-grid">
+          <button class="task-card" data-go="task1"><span>🎯</span><b>CSS Selectors</b><small>Rules, attributes, and states</small></button>
+          <button class="task-card" data-go="task2"><span>🔤</span><b>Typography</b><small>Fonts, scale, and text effects</small></button>
+          <button class="task-card" data-go="task3"><span>🌈</span><b>Backgrounds</b><small>Images, gradients, and blends</small></button>
+          <button class="task-card" data-go="task4"><span>🖼️</span><b>Image Portfolio</b><small>Image treatments and overlays</small></button>
+          <button class="task-card" data-go="task5"><span>🔘</span><b>Button Collection</b><small>Button sizes and states</small></button>
+          <button class="task-card" data-go="task6"><span>📝</span><b>Registration Form</b><small>Inputs and validation styles</small></button>
+          <button class="task-card" data-go="task7"><span>🪪</span><b>Product Card</b><small>Reusable card layout</small></button>
+          <button class="task-card" data-go="task8"><span>🧭</span><b>Navigation Menu</b><small>Links and dropdowns</small></button>
+          <button class="task-card" data-go="task9"><span>🧊</span><b>Transforms</b><small>Hover and 3D transforms</small></button>
+          <button class="task-card" data-go="task10"><span>✨</span><b>CSS Effects</b><small>Animation and visual effects</small></button>
+          <button class="task-card" data-go="task11"><span>💼</span><b>Personal Portfolio</b><small>Profile page composition</small></button>
+          <button class="task-card" data-go="task12"><span>📅</span><b>Course Schedule</b><small>Accessible schedule table</small></button>
+        </div>
+      </section>
+    </div></section>
+  </main>
+  <script>
+    (() => {
+      const sidebar=document.getElementById('sidebar'), overlay=document.getElementById('overlay'), menuButton=document.getElementById('menuButton');
+      const frameHost=document.getElementById('frameHost'), title=document.getElementById('pageTitle'), buttons=[...document.querySelectorAll('.nav-link')], frames=new Map(), themeButton=document.getElementById('themeButton'), root=document.documentElement;
+      const isMobile=()=>matchMedia('(max-width: 900px)').matches;
+      let theme='light'; try{theme=localStorage.getItem('lab34-theme')||'light'}catch{} root.dataset.theme=theme;
+      const setTheme=value=>{theme=value;root.dataset.theme=theme;try{localStorage.setItem('lab34-theme',theme)}catch{}themeButton.textContent=theme==='dark'?'☀️':'🌙'};
+      function setMenuOpen(open){if(isMobile()){sidebar.classList.toggle('open',open);overlay.classList.toggle('open',open)}else{sidebar.classList.toggle('closed',!open);document.body.classList.toggle('sidebar-collapsed',!open);overlay.classList.remove('open')}menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',`${open?'Close':'Open'} task navigation`)}
+      function show(button,updateHash=true){if(!button)return;const id=button.dataset.id;buttons.forEach(item=>{const active=item===button;item.classList.toggle('active',active);if(active)item.setAttribute('aria-current','page');else item.removeAttribute('aria-current')});title.textContent=button.dataset.title;const dashboard=document.getElementById('dashboardPanel');dashboard.hidden=id!=='dashboard';if(id!=='dashboard'){let frame=frames.get(id);if(!frame){frame=document.createElement('iframe');frame.title=button.dataset.title;frame.loading='lazy';frame.src=button.dataset.file;frameHost.appendChild(frame);frames.set(id,frame)}frames.forEach((item,key)=>item.hidden=key!==id)}else frames.forEach(item=>item.hidden=true);if(updateHash&&location.hash!==`#${id}`)history.replaceState(null,'',`#${id}`);if(isMobile())setMenuOpen(false)}
+      buttons.forEach(button=>button.addEventListener('click',()=>show(button)));
+      const first=buttons.find(item=>item.dataset.id===location.hash.slice(1))||buttons[0];show(first,false);setMenuOpen(!isMobile());setTheme(theme);
+      document.querySelectorAll('[data-go]').forEach(button=>button.addEventListener('click',event=>{event.preventDefault();const target=buttons.find(item=>item.dataset.id===button.dataset.go);show(target)}));
+      menuButton.addEventListener('click',()=>{const open=isMobile()?sidebar.classList.contains('open'):!sidebar.classList.contains('closed');setMenuOpen(!open)});
+      overlay.addEventListener('click',()=>setMenuOpen(false));document.addEventListener('keydown',event=>{if(event.key==='Escape')setMenuOpen(false)});
+      window.addEventListener('resize',()=>{if(isMobile()){sidebar.classList.remove('closed');document.body.classList.remove('sidebar-collapsed')}else{sidebar.classList.remove('open');overlay.classList.remove('open')}const open=isMobile()?sidebar.classList.contains('open'):!sidebar.classList.contains('closed');menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',`${open?'Close':'Open'} task navigation`)});
+      themeButton.addEventListener('click',()=>setTheme(theme==='dark'?'light':'dark'));
+    })();
+  </script>
+</body>
+</html>
