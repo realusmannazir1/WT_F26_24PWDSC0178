@@ -13,10 +13,11 @@
     .sidebar{position:fixed;inset:0 auto 0 0;width:258px;background:var(--nav);color:var(--navink);z-index:30;display:flex;flex-direction:column;transition:transform .25s ease}
     .brand{height:78px;padding:0 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.08);flex:none}.brand-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;font-size:20px;background:linear-gradient(135deg,#756bff,#ff6584);box-shadow:0 5px 18px #6c63ff55}.brand-copy b{display:block;color:#fff;font-size:15px;letter-spacing:.2px}.brand-copy small{display:block;color:#8e94b6;font-size:11px;margin-top:3px}
     .nav-search{margin:15px 13px 8px;position:relative}.nav-search input{width:100%;height:38px;padding:0 12px 0 35px;border-radius:10px;border:1px solid #ffffff18;background:#ffffff0b;color:#fff;outline:none;font-size:12px}.nav-search input:focus{border-color:#918aff}.nav-search span{position:absolute;left:12px;top:10px;opacity:.65;font-size:14px}.nav-list{overflow:auto;padding:0 10px 18px;scrollbar-width:thin;scrollbar-color:#ffffff25 transparent}.nav-group{padding:12px 10px 6px;color:#7d84a6;text-transform:uppercase;font-weight:700;font-size:10px;letter-spacing:1.2px}.nav-link{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:11px;text-align:left;padding:10px 11px;margin:2px 0;border-radius:9px;color:var(--navink);cursor:pointer;font-size:12.5px;transition:background .15s,color .15s}.nav-link:hover{background:#ffffff10;color:white}.nav-link.active{background:linear-gradient(100deg,#6c63ff,#8178ff);color:white;box-shadow:0 5px 14px #6c63ff38}.nav-icon{width:20px;text-align:center;font-size:15px}.nav-number{margin-left:auto;color:#8f95b5;font-size:10px;font-variant-numeric:tabular-nums}.nav-link.active .nav-number{color:#ffffffb3}.sidebar-bottom{margin-top:auto;border-top:1px solid #ffffff12;padding:14px 17px;color:#8e94b6;font-size:10px;line-height:1.55}
-    .workspace{margin-left:258px;min-height:100vh}.topbar{height:70px;position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 25px;gap:15px}.menu-button{display:none}.current{min-width:0;flex:1}.current small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.current strong{font-size:14px}.top-actions{display:flex;align-items:center;gap:9px}.top-button{height:36px;min-width:36px;border:1px solid var(--line);background:var(--surface2);border-radius:10px;display:grid;place-items:center;cursor:pointer}.top-button:hover{border-color:var(--accent)}.user-chip{display:flex;align-items:center;gap:9px;padding-left:7px}.user-avatar{width:33px;height:33px;border-radius:11px;display:grid;place-items:center;color:white;font-size:11px;font-weight:800;background:linear-gradient(135deg,#6c63ff,#ff6584)}.user-name{font-size:11px;font-weight:700}.user-role{font-size:9px;color:var(--muted);margin-top:2px}
+    .workspace{margin-left:258px;min-height:100vh;transition:margin-left .25s ease}.topbar{height:70px;position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 25px;gap:15px}.menu-button{display:grid;font-size:20px;line-height:1}.current{min-width:0;flex:1}.current small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.current strong{font-size:14px}.top-actions{display:flex;align-items:center;gap:9px}.top-button{height:36px;min-width:36px;border:1px solid var(--line);background:var(--surface2);border-radius:10px;display:grid;place-items:center;cursor:pointer}.top-button:hover{border-color:var(--accent)}.top-button:focus-visible,.nav-link:focus-visible{outline:3px solid var(--pink);outline-offset:2px}.user-chip{display:flex;align-items:center;gap:9px;padding-left:7px}.user-avatar{width:33px;height:33px;border-radius:11px;display:grid;place-items:center;color:white;font-size:11px;font-weight:800;background:linear-gradient(135deg,#6c63ff,#ff6584)}.user-name{font-size:11px;font-weight:700}.user-role{font-size:9px;color:var(--muted);margin-top:2px}
     .content{padding:18px 20px 24px;height:calc(100vh - 70px);min-height:440px}.frame-wrap{height:100%;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}.task-frame{width:100%;height:100%;border:0;display:block;background:var(--bg)}.task-frame[hidden]{display:none}.overlay{display:none}
     .skip-link{position:fixed;left:12px;top:10px;z-index:60;padding:10px 14px;border-radius:9px;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);transform:translateY(-160%)}.skip-link:focus{transform:translateY(0)}
-    @media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.workspace{margin-left:0}.menu-button{display:grid}.overlay.open{display:block;position:fixed;inset:0;background:#08091499;z-index:25}.content{padding:14px;height:calc(100vh - 64px)}.topbar{height:64px;padding:0 14px}}
+    @media(min-width:901px){.sidebar.closed{transform:translateX(-100%)}body.sidebar-collapsed .workspace{margin-left:0}}
+    @media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.workspace{margin-left:0}.overlay.open{display:block;position:fixed;inset:0;background:#08091499;z-index:25}.content{padding:14px;height:calc(100vh - 64px)}.topbar{height:64px;padding:0 14px}}
     @media(max-width:520px){.topbar{gap:9px}.user-copy{display:none}.content{padding:9px;height:calc(100vh - 58px);min-height:390px}.topbar{height:58px}.current strong{font-size:12px}.top-button{height:34px;min-width:34px}.frame-wrap{border-radius:10px}}
   </style>
 </head>
@@ -57,7 +58,7 @@
   <div class="overlay" id="overlay"></div>
   <main class="workspace">
     <header class="topbar">
-      <button class="top-button menu-button" id="menuButton" aria-label="Open task navigation">☰</button>
+      <button class="top-button menu-button" id="menuButton" type="button" aria-label="Open task navigation" aria-controls="sidebar" aria-expanded="true" title="Toggle task navigation">⋮</button>
       <div class="current"><small>LAB 05 &amp; 06 <span aria-hidden="true">/</span> WEB TECHNOLOGIES</small><strong id="pageTitle">Store Dashboard</strong></div>
       <div class="top-actions"><button class="top-button" id="themeButton" aria-label="Switch color theme" title="Switch color theme">🌙</button><div class="user-chip"><div class="user-avatar">UN</div><div class="user-copy"><div class="user-name">Usman Nazir</div><div class="user-role">BS Data Science · Semester 5</div></div></div></div>
     </header>
@@ -86,7 +87,23 @@
         frames.forEach(frame => frame.contentWindow.postMessage({channel:'shopzone:theme',theme}, '*'));
         paintThemeButton();
       };
-      const closeMenu = () => { sidebar.classList.remove('open'); overlay.classList.remove('open'); };
+      const menuButton = document.getElementById('menuButton');
+      const mobileLayout = () => matchMedia('(max-width: 900px)').matches;
+      const setMenuOpen = open => {
+        const mobile = mobileLayout();
+        if (mobile) {
+          sidebar.classList.toggle('open', open);
+          overlay.classList.toggle('open', open);
+        } else {
+          sidebar.classList.toggle('closed', !open);
+          document.body.classList.toggle('sidebar-collapsed', !open);
+          overlay.classList.remove('open');
+        }
+        menuButton.setAttribute('aria-expanded', String(open));
+        menuButton.setAttribute('aria-label', `${open ? 'Close' : 'Open'} task navigation`);
+      };
+      const closeMenu = () => { if (mobileLayout()) setMenuOpen(false); };
+      setMenuOpen(!mobileLayout());
 
       function selectPage(button, updateHash = true) {
         if (!button) return;
@@ -139,8 +156,19 @@
         const query = event.target.value.trim().toLowerCase();
         navButtons.forEach(button => { button.hidden = !button.textContent.toLowerCase().includes(query); });
       });
-      document.getElementById('menuButton').addEventListener('click', () => { sidebar.classList.add('open'); overlay.classList.add('open'); });
+      menuButton.addEventListener('click', () => {
+        const isOpen = mobileLayout() ? sidebar.classList.contains('open') : !sidebar.classList.contains('closed');
+        setMenuOpen(!isOpen);
+      });
       overlay.addEventListener('click', closeMenu);
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') setMenuOpen(false); });
+      window.addEventListener('resize', () => {
+        if (mobileLayout()) { sidebar.classList.remove('closed'); document.body.classList.remove('sidebar-collapsed'); }
+        else { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+        const open = mobileLayout() ? sidebar.classList.contains('open') : !sidebar.classList.contains('closed');
+        menuButton.setAttribute('aria-expanded', String(open));
+        menuButton.setAttribute('aria-label', `${open ? 'Close' : 'Open'} task navigation`);
+      });
 
       const readProducts = () => {
         try { const products = JSON.parse(localStorage.getItem(productKey) || '[]'); return Array.isArray(products) ? products.filter(product => product && typeof product.id === 'string' && typeof product.name === 'string' && typeof product.category === 'string' && Number.isFinite(Number(product.price)) && Number(product.price) > 0) : []; }

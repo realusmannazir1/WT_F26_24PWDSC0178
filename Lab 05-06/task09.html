@@ -67,6 +67,32 @@
   .product-form input:focus,.product-form select:focus { outline:2px solid var(--accent); outline-offset:1px; }
   .form-actions { display:flex; justify-content:flex-end; gap:9px; margin-top:4px; }
   .form-status { min-height:1em; color:var(--accent); font-size:.82rem; }
+  .dashboard-hero { position:relative; isolation:isolate; overflow:hidden; display:grid; grid-template-columns:minmax(0,1fr) minmax(220px, .72fr); align-items:center; gap:24px; min-height:230px; margin:0 0 24px; padding:clamp(24px,4vw,38px); border-radius:22px; color:#fff; background:radial-gradient(ellipse at 85% 15%,rgba(255,255,255,.25),transparent 36%),linear-gradient(120deg,#554be8 0%,#756bff 52%,#e65d91 120%); box-shadow:0 18px 40px rgba(91,79,220,.22); animation:heroEnter .65s cubic-bezier(.2,.75,.25,1) both; }
+  .dashboard-hero::before,.dashboard-hero::after { content:""; position:absolute; z-index:-1; border:1px solid rgba(255,255,255,.2); border-radius:50%; pointer-events:none; }
+  .dashboard-hero::before { width:260px;height:260px;right:13%;top:-175px;box-shadow:0 0 0 25px rgba(255,255,255,.035),0 0 0 52px rgba(255,255,255,.025); }
+  .dashboard-hero::after { width:180px;height:180px;right:-60px;bottom:-120px;background:rgba(255,255,255,.08); }
+  .hero-copy,.hero-visual { position:relative;z-index:1; }
+  .hero-kicker { display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;color:rgba(255,255,255,.84);font-size:.7rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase; }
+  .hero-kicker::before { content:"";width:7px;height:7px;border-radius:50%;background:#76f0be;box-shadow:0 0 12px #76f0be; }
+  .hero-copy h1 { max-width:560px;margin:0 0 9px;color:#fff;font-size:clamp(1.65rem,3.2vw,2.35rem);line-height:1.12;letter-spacing:-.04em; }
+  .hero-copy p { max-width:510px;margin:0;color:rgba(255,255,255,.79);font-size:.9rem;line-height:1.6; }
+  .hero-actions { display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:22px; }
+  .hero-actions .btn { min-height:40px;padding:0 15px;border:1px solid rgba(255,255,255,.28);border-radius:10px;color:#fff;background:rgba(255,255,255,.13);backdrop-filter:blur(8px);font-weight:700; }
+  .hero-actions .btn-primary { color:#5147d9;background:#fff;border-color:#fff;box-shadow:0 5px 16px rgba(37,31,116,.2); }
+  .hero-actions .btn:hover { transform:translateY(-2px); }
+  .hero-visual { justify-self:end;width:min(100%,300px);padding:17px 18px 13px;border:1px solid rgba(255,255,255,.25);border-radius:17px;background:rgba(25,24,80,.2);box-shadow:0 14px 32px rgba(35,29,110,.16);backdrop-filter:blur(12px);animation:heroFloat 5s ease-in-out infinite; }
+  .hero-visual-top { display:flex;justify-content:space-between;align-items:center;gap:10px;color:rgba(255,255,255,.76);font-size:.68rem; }
+  .hero-live { padding:4px 8px;border-radius:20px;background:rgba(118,240,190,.18);color:#bfffe3;font-size:.62rem;font-weight:800; }
+  .hero-revenue { margin-top:15px;color:#fff;font-size:1.65rem;font-weight:800;letter-spacing:-.04em; }
+  .hero-growth { margin-left:7px;color:#bfffe3;font-size:.72rem;font-weight:700;letter-spacing:0; }
+  .hero-sparkline { display:block;width:100%;height:65px;margin-top:2px;overflow:visible; }
+  .hero-sparkline path { fill:none;stroke:#c9c5ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:360;stroke-dashoffset:360;animation:sparkDraw 1.5s .35s ease-out forwards; }
+  .hero-sparkline .spark-fill { fill:url(#heroSparkFill);stroke:none;stroke-dasharray:none;opacity:.65; }
+  @keyframes heroEnter { from { opacity:0;transform:translateY(13px); } to { opacity:1;transform:translateY(0); } }
+  @keyframes heroFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-5px); } }
+  @keyframes sparkDraw { to { stroke-dashoffset:0; } }
+  @media(max-width:760px) { .dashboard-hero { grid-template-columns:1fr;gap:22px; } .hero-visual { justify-self:stretch;width:100%; } }
+  @media(prefers-reduced-motion:reduce) { .dashboard-hero,.hero-visual,.hero-sparkline path { animation:none; } .hero-sparkline path { stroke-dashoffset:0; } .hero-actions .btn { transition:none; } }
   @media(max-width:600px) { .chart-area { gap:4px; } .chart-area .bar-col span { font-size:.58rem; } }
 </style>
 </head>
@@ -133,17 +159,27 @@
 <div class="main-content">
 <div class="page-body">
 
-  <!-- WELCOME -->
-  <div style="margin-bottom:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-    <div>
-      <h1 style="font-size:1.5rem; color:var(--text); margin-bottom:4px;">Welcome back, Usman 👋</h1>
-      <p style="color:var(--text3); font-size:0.88rem;">Store overview · Demo data is saved in this browser.</p>
+  <!-- DASHBOARD HERO -->
+  <section class="dashboard-hero" aria-labelledby="dashboardHeroTitle">
+    <div class="hero-copy">
+      <div class="hero-kicker">ShopZone · Store overview</div>
+      <h1 id="dashboardHeroTitle">Your store is moving forward.</h1>
+      <p>Track sales, customers, and products in one place. Your demo changes are saved in this browser.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="newProductBtn" type="button">＋ Add a product</button>
+        <a class="btn" href="Main.html#task08" target="_top">Browse the shop <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
-    <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      <button class="btn btn-ghost btn-sm" type="button" aria-label="Dashboard date">📅 Oct 2, 2026</button>
-      <button class="btn btn-primary btn-sm" id="newProductBtn" type="button">+ New Product</button>
+    <div class="hero-visual" aria-label="Revenue snapshot: 84,250 dollars, up 18.2 percent">
+      <div class="hero-visual-top"><span>Revenue snapshot</span><span class="hero-live">↗ 18.2%</span></div>
+      <div class="hero-revenue">$84,250 <span class="hero-growth">this month</span></div>
+      <svg class="hero-sparkline" viewBox="0 0 300 65" role="img" aria-label="Revenue trend rising through the month">
+        <defs><linearGradient id="heroSparkFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="white" stop-opacity=".36"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient></defs>
+        <path class="spark-fill" d="M2 54 L38 44 L74 48 L112 29 L148 36 L184 19 L221 26 L259 9 L298 13 L298 65 L2 65 Z"/>
+        <path d="M2 54 L38 44 L74 48 L112 29 L148 36 L184 19 L221 26 L259 9 L298 13"/>
+      </svg>
     </div>
-  </div>
+  </section>
 
   <!-- STAT CARDS -->
   <div class="stat-grid">
