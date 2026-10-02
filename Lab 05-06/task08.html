@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 8 – Product Grid</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #222;
+  }
+
+  header {
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header h1 { font-size: 1.5rem; }
+  header h1 span { color: #e94560; }
+  .cart-btn {
+    background: #e94560;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  .container { max-width: 1200px; margin: auto; padding: 35px 25px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .section-header h2 { font-size: 1.5rem; color: #1a1a2e; }
+  .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #555;
+  }
+  .filter-btn.active { background: #e94560; color: white; border-color: #e94560; }
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+
+  .product {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .product:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  }
+
+  .product-img-wrap { position: relative; }
+  .product img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+  .product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #e94560;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .wishlist {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .product-body { padding: 16px; }
+  .product-body h3 { font-size: 1rem; color: #1a1a2e; margin-bottom: 5px; }
+  .stars { color: #f5a623; font-size: 0.8rem; margin-bottom: 8px; }
+  .stars span { color: #999; font-size: 0.75rem; margin-left: 4px; }
+
+  .price-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .price { font-size: 1.3rem; font-weight: 800; color: #e94560; }
+  .old-price { font-size: 0.85rem; color: #aaa; text-decoration: line-through; }
+
+  .add-btn {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background 0.2s;
+  }
+  .add-btn:hover { background: linear-gradient(135deg, #e94560, #c62a47); }
+
+  @media (max-width: 900px) { .products { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .products { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Shop<span>Zone</span></h1>
+  <button class="cart-btn">🛒 Cart (0)</button>
+</header>
+
+<div class="container">
+  <div class="section-header">
+    <h2>Featured Products</h2>
+    <div class="filter-btns">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Electronics</button>
+      <button class="filter-btn">Accessories</button>
+      <button class="filter-btn">Gadgets</button>
+    </div>
+  </div>
+
+  <div class="products">
+
+    <div class="product">
+      <div class="product-img-wrap">
+        <img src="https://picsum.photos/400/300?random=20" alt="Laptop">
+        <span class="product-badge">Hot</span>
+        <button class="wishlist">♡</button>
+      </div>
+      <div class="product-body">
+        <h3>Pro Laptop X1</h3>
+        <div class="stars">★★★★★ <span>(128)</span></div>
+        <div class="price-row"><span class="price">$800</span><span class="old-price">$999</span></div>
+        <button class="add-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-img-wrap">
+        <img src="https://picsum.photos/400/300?random=21" alt="Headphones">
+        <span class="product-badge">Sale</span>
+        <button class="wishlist">♡</button>
+      </div>
+      <div class="product-body">
+        <h3>Wireless Headphones</h3>
+        <div class="stars">★★★★☆ <span>(84)</span></div>
+        <div class="price-row"><span class="price">$120</span><span class="old-price">$160</span></div>
+        <button class="add-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-img-wrap">
+        <img src="https://picsum.photos/400/300?random=22" alt="Watch">
+        <button class="wishlist">♡</button>
+      </div>
+      <div class="product-body">
+        <h3>Smart Watch Pro</h3>
+        <div class="stars">★★★★★ <span>(210)</span></div>
+        <div class="price-row"><span class="price">$150</span><span class="old-price">$200</span></div>
+        <button class="add-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-img-wrap">
+        <img src="https://picsum.photos/400/300?random=23" alt="Keyboard">
+        <span class="product-badge">New</span>
+        <button class="wishlist">♡</button>
+      </div>
+      <div class="product-body">
+        <h3>Mechanical Keyboard</h3>
+        <div class="stars">★★★★☆ <span>(56)</span></div>
+        <div class="price-row"><span class="price">$60</span><span class="old-price">$80</span></div>
+        <button class="add-btn">Add to Cart</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

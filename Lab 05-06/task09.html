@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f3f3;
+}
+
+.dashboard {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 230px 1fr;
+}
+
+.sidebar {
+    background: #222;
+    color: white;
+    padding: 25px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 12px 0;
+}
+
+.main {
+    padding: 25px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.chart {
+    margin-top: 20px;
+    background: white;
+    padding: 30px;
+    height: 300px;
+}
+
+@media (max-width: 900px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        text-align: center;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+    <h2>Admin</h2>
+    <a href="#">Dashboard</a>
+    <a href="#">Users</a>
+    <a href="#">Reports</a>
+    <a href="#">Settings</a>
+</aside>
+
+<main class="main">
+
+<h1>Dashboard</h1>
+
+<div class="stats">
+
+<div class="stat">
+    <h3>Users</h3>
+    <h2>1,250</h2>
+</div>
+
+<div class="stat">
+    <h3>Orders</h3>
+    <h2>540</h2>
+</div>
+
+<div class="stat">
+    <h3>Revenue</h3>
+    <h2>$25K</h2>
+</div>
+
+<div class="stat">
+    <h3>Products</h3>
+    <h2>320</h2>
+</div>
+
+</div>
+
+<div class="chart">
+    <h2>Sales Overview</h2>
+    <p>Dashboard chart area</p>
+</div>
+
+</main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Grid Magazine</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eee;
+}
+
+.magazine {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-areas:
+        "hero hero side"
+        "article article side"
+        "news news news";
+    gap: 20px;
+}
+
+.hero {
+    grid-area: hero;
+    background: white;
+    padding: 30px;
+}
+
+.side {
+    grid-area: side;
+    background: white;
+    padding: 25px;
+}
+
+.article {
+    grid-area: article;
+    background: white;
+    padding: 25px;
+}
+
+.news {
+    grid-area: news;
+    background: white;
+    padding: 25px;
+}
+
+@media (max-width: 800px) {
+    .magazine {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "hero hero"
+            "side side"
+            "article article"
+            "news news";
+    }
+}
+
+@media (max-width: 500px) {
+    .magazine {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "hero"
+            "side"
+            "article"
+            "news";
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="magazine">
+
+<section class="hero">
+    <h1>Technology in 2026</h1>
+    <p>
+        Discover the latest developments in modern technology.
+    </p>
+</section>
+
+<aside class="side">
+    <h2>Trending</h2>
+    <p>Artificial Intelligence</p>
+    <p>Robotics</p>
+    <p>Cloud Computing</p>
+</aside>
+
+<article class="article">
+    <h2>The Future of Software</h2>
+    <p>
+        Software development continues to evolve through
+        automation and artificial intelligence.
+    </p>
+</article>
+
+<section class="news">
+    <h2>Latest News</h2>
+    <p>Web technologies are becoming increasingly responsive.</p>
+</section>
+
+</div>
+
+</body>
+</html>

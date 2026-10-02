@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Responsive Utilities</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Display utilities */
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-grid {
+    display: grid;
+}
+
+/* Spacing */
+.p-1 {
+    padding: 10px;
+}
+
+.p-2 {
+    padding: 20px;
+}
+
+.m-1 {
+    margin: 10px;
+}
+
+.m-2 {
+    margin: 20px;
+}
+
+/* Text */
+.text-center {
+    text-align: center;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .d-md-block {
+        display: block;
+    }
+
+    .d-md-flex {
+        display: flex;
+    }
+}
+
+@media (min-width: 992px) {
+    .d-lg-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .mobile-hidden {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="text-center">Utility Classes</h1>
+
+<div class="d-lg-grid">
+
+<div class="p-2">
+    <h2>Box 1</h2>
+    <p>Responsive utility example.</p>
+</div>
+
+<div class="p-2">
+    <h2>Box 2</h2>
+    <p>Responsive utility example.</p>
+</div>
+
+<div class="p-2">
+    <h2>Box 3</h2>
+    <p>Responsive utility example.</p>
+</div>
+
+</div>
+
+<p class="mobile-hidden">
+    This paragraph is hidden on mobile screens.
+</p>
+
+</div>
+
+</body>
+</html>

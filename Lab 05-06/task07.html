@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 7 – Holy Grail Layout</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #222;
+  }
+
+  .method-title {
+    background: linear-gradient(90deg, #1a1a2e, #e94560);
+    color: white;
+    text-align: center;
+    padding: 14px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+
+  /* ===== SHARED STYLES ===== */
+  .hg-header, .hg-footer {
+    background: linear-gradient(90deg, #1a1a2e, #0f3460);
+    color: white;
+    padding: 20px 30px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .hg-footer { background: #1a1a2e; font-size: 0.85rem; color: #aaa; }
+
+  .hg-left, .hg-right {
+    background: #e8eaf0;
+    padding: 20px;
+    color: #555;
+    font-size: 0.9rem;
+    border-right: 1px solid #ddd;
+  }
+  .hg-right { border-right: none; border-left: 1px solid #ddd; }
+  .hg-left h4, .hg-right h4 { color: #e94560; margin-bottom: 10px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+  .hg-left ul, .hg-right ul { list-style: none; }
+  .hg-left ul li, .hg-right ul li { padding: 6px 0; border-bottom: 1px solid #ddd; font-size: 0.85rem; }
+
+  .hg-main {
+    background: white;
+    padding: 25px 30px;
+    flex: 1;
+  }
+  .hg-main h2 { color: #1a1a2e; margin-bottom: 10px; }
+  .hg-main p { color: #666; line-height: 1.7; font-size: 0.9rem; }
+
+  /* ===== METHOD 1: FLEXBOX ===== */
+  .holy-flex {
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
+    margin-bottom: 4px;
+  }
+  .holy-flex .hg-body {
+    flex: 1;
+    display: flex;
+  }
+  .holy-flex .hg-left, .holy-flex .hg-right { width: 180px; flex-shrink: 0; }
+
+  @media (max-width: 700px) {
+    .holy-flex .hg-body { flex-direction: column; }
+    .holy-flex .hg-left, .holy-flex .hg-right { width: 100%; border: none; border-top: 1px solid #ddd; }
+  }
+
+  /* ===== METHOD 2: CSS GRID ===== */
+  .holy-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr 180px;
+    grid-template-rows: auto 1fr auto;
+    min-height: 350px;
+    margin-bottom: 4px;
+  }
+  .holy-grid .hg-header { grid-column: 1 / 4; }
+  .holy-grid .hg-footer { grid-column: 1 / 4; }
+
+  @media (max-width: 700px) {
+    .holy-grid { grid-template-columns: 1fr; }
+    .holy-grid .hg-header, .holy-grid .hg-footer { grid-column: 1; }
+    .holy-grid .hg-left, .holy-grid .hg-right { border: none; border-top: 1px solid #ddd; }
+  }
+
+  /* ===== METHOD 3: FLOAT ===== */
+  .holy-float { margin-bottom: 4px; }
+  .holy-float .hg-body { overflow: hidden; }
+  .holy-float .hg-body::after { content: ""; display: table; clear: both; }
+  .holy-float .hg-left { float: left; width: 20%; min-height: 200px; }
+  .holy-float .hg-main { float: left; width: 60%; }
+  .holy-float .hg-right { float: right; width: 20%; min-height: 200px; }
+
+  @media (max-width: 700px) {
+    .holy-float .hg-left,
+    .holy-float .hg-main,
+    .holy-float .hg-right { float: none; width: 100%; }
+  }
+
+  .spacer { height: 30px; }
+</style>
+</head>
+<body>
+
+<div class="method-title">Method 1 — Flexbox Holy Grail</div>
+<div class="holy-flex">
+  <div class="hg-header">🔷 Header</div>
+  <div class="hg-body">
+    <aside class="hg-left">
+      <h4>Left Sidebar</h4>
+      <ul><li>Link One</li><li>Link Two</li><li>Link Three</li></ul>
+    </aside>
+    <main class="hg-main">
+      <h2>Main Content Area</h2>
+      <p>This is the holy grail layout built using <strong>CSS Flexbox</strong>. The sidebar widths are fixed and the main content area grows to fill the remaining space.</p>
+    </main>
+    <aside class="hg-right">
+      <h4>Right Sidebar</h4>
+      <ul><li>Widget A</li><li>Widget B</li><li>Widget C</li></ul>
+    </aside>
+  </div>
+  <footer class="hg-footer">Footer — Flexbox Method</footer>
+</div>
+
+<div class="spacer"></div>
+
+<div class="method-title">Method 2 — CSS Grid Holy Grail</div>
+<div class="holy-grid">
+  <div class="hg-header">🔶 Header</div>
+  <aside class="hg-left">
+    <h4>Left Sidebar</h4>
+    <ul><li>Link One</li><li>Link Two</li><li>Link Three</li></ul>
+  </aside>
+  <main class="hg-main">
+    <h2>Main Content Area</h2>
+    <p>This is the holy grail layout built using <strong>CSS Grid</strong>. Grid areas are defined explicitly with column and row spans for precise placement.</p>
+  </main>
+  <aside class="hg-right">
+    <h4>Right Sidebar</h4>
+    <ul><li>Widget A</li><li>Widget B</li><li>Widget C</li></ul>
+  </aside>
+  <footer class="hg-footer">Footer — CSS Grid Method</footer>
+</div>
+
+<div class="spacer"></div>
+
+<div class="method-title">Method 3 — Traditional Float Holy Grail</div>
+<div class="holy-float">
+  <div class="hg-header">🔸 Header</div>
+  <div class="hg-body">
+    <aside class="hg-left">
+      <h4>Left Sidebar</h4>
+      <ul><li>Link One</li><li>Link Two</li><li>Link Three</li></ul>
+    </aside>
+    <main class="hg-main">
+      <h2>Main Content Area</h2>
+      <p>This is the holy grail layout built using <strong>CSS Floats</strong>. The left and right sidebars float to their respective sides while the main content fills the center.</p>
+    </main>
+    <aside class="hg-right">
+      <h4>Right Sidebar</h4>
+      <ul><li>Widget A</li><li>Widget B</li><li>Widget C</li></ul>
+    </aside>
+  </div>
+  <footer class="hg-footer">Footer — Float Method</footer>
+</div>
+
+</body>
+</html>

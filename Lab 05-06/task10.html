@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Media Queries</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px;
+    background: white;
+}
+
+.box {
+    padding: 50px;
+    margin: 30px auto;
+    max-width: 700px;
+    background: #ddd;
+}
+
+.box::after {
+    content: "Desktop";
+    font-size: 30px;
+}
+
+@media (max-width: 1000px) {
+    body {
+        background: #eee;
+    }
+
+    .box::after {
+        content: "Tablet / Medium Screen";
+    }
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 20px;
+    }
+
+    .box {
+        padding: 30px;
+    }
+
+    .box::after {
+        content: "Small Tablet";
+    }
+}
+
+@media (max-width: 500px) {
+    body {
+        background: #ddd;
+    }
+
+    .box {
+        padding: 20px;
+    }
+
+    .box::after {
+        content: "Mobile";
+    }
+}
+
+@media print {
+    body {
+        background: white;
+    }
+
+    .box::after {
+        content: "Print Version";
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Media Query Demonstration</h1>
+
+<div class="box"></div>
+
+<p>
+Resize the browser to observe the changes.
+</p>
+
+</body>
+</html>

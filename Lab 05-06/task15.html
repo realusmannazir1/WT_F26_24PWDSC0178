@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mobile First Landing Page</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.hero {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 36px;
+}
+
+.hero button {
+    padding: 14px 25px;
+    border: 0;
+    background: #222;
+    color: white;
+}
+
+.features {
+    padding: 30px 20px;
+}
+
+.feature {
+    padding: 25px;
+    margin-bottom: 15px;
+    background: #eee;
+}
+
+footer {
+    padding: 30px;
+    text-align: center;
+    background: #222;
+    color: white;
+}
+
+/* Larger screens */
+@media (min-width: 700px) {
+
+    .hero {
+        padding: 100px 20px;
+    }
+
+    .features {
+        max-width: 1100px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .feature {
+        margin: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>MyProduct</h2>
+</header>
+
+<section class="hero">
+
+<h1>Build Something Amazing</h1>
+
+<p>
+A responsive landing page designed with a mobile-first approach.
+</p>
+
+<button>Get Started</button>
+
+</section>
+
+<section class="features">
+
+<div class="feature">
+<h2>Fast</h2>
+<p>Optimized for modern devices.</p>
+</div>
+
+<div class="feature">
+<h2>Responsive</h2>
+<p>Works on mobile, tablet and desktop.</p>
+</div>
+
+<div class="feature">
+<h2>Simple</h2>
+<p>Clean and easy-to-use interface.</p>
+</div>
+
+</section>
+
+<footer>
+<p>© 2026 MyProduct</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 5 – Flexbox Cards</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    min-height: 100vh;
+    padding: 50px 20px;
+    color: #eee;
+  }
+
+  .page-header { text-align: center; margin-bottom: 50px; }
+  .page-header h1 { font-size: 2.2rem; color: white; margin-bottom: 10px; }
+  .page-header h1 span { color: #e94560; }
+  .page-header p { color: rgba(255,255,255,0.6); font-size: 1rem; }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    max-width: 1100px;
+    margin: auto;
+    justify-content: center;
+  }
+
+  .card {
+    flex: 1 1 280px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-icon {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+  }
+
+  .card-body { padding: 25px; }
+  .card-tag {
+    display: inline-block;
+    background: rgba(233,69,96,0.2);
+    color: #e94560;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(233,69,96,0.3);
+  }
+  .card-body h2 { color: white; font-size: 1.2rem; margin-bottom: 10px; }
+  .card-body p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .card-footer span { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+
+  .btn {
+    background: linear-gradient(135deg, #e94560, #c62a47);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.85; }
+
+  @media (max-width: 500px) {
+    .card { flex-basis: 100%; }
+    body { padding: 30px 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Our <span>Services</span></h1>
+  <p>Explore what we offer — hover over the cards</p>
+</div>
+
+<div class="cards">
+
+  <div class="card">
+    <div class="card-icon" style="background: linear-gradient(135deg,#1a1a2e,#0f3460);">🌐</div>
+    <div class="card-body">
+      <span class="card-tag">Development</span>
+      <h2>Web Development</h2>
+      <p>Modern, responsive websites built with the latest technologies and best practices.</p>
+    </div>
+    <div class="card-footer">
+      <span>⭐ 4.9 / 5.0</span>
+      <button class="btn">Learn More</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-icon" style="background: linear-gradient(135deg,#0f3460,#16213e);">📊</div>
+    <div class="card-body">
+      <span class="card-tag">Analytics</span>
+      <h2>Data Science</h2>
+      <p>Data analysis, visualization and machine learning solutions for your business.</p>
+    </div>
+    <div class="card-footer">
+      <span>⭐ 4.8 / 5.0</span>
+      <button class="btn">Learn More</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-icon" style="background: linear-gradient(135deg,#16213e,#1a1a2e);">🎨</div>
+    <div class="card-body">
+      <span class="card-tag">Design</span>
+      <h2>UI / UX Design</h2>
+      <p>Clean, user-friendly interfaces that deliver exceptional user experiences.</p>
+    </div>
+    <div class="card-footer">
+      <span>⭐ 4.7 / 5.0</span>
+      <button class="btn">Learn More</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-icon" style="background: linear-gradient(135deg,#1a1a2e,#e94560);">☁</div>
+    <div class="card-body">
+      <span class="card-tag">Cloud</span>
+      <h2>Cloud Solutions</h2>
+      <p>Scalable cloud infrastructure and deployment services for modern applications.</p>
+    </div>
+    <div class="card-footer">
+      <span>⭐ 4.9 / 5.0</span>
+      <button class="btn">Learn More</button>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

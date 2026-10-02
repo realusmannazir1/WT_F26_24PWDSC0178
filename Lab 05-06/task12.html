@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Responsive Form</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eee;
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+textarea {
+    min-height: 120px;
+}
+
+button {
+    padding: 12px 25px;
+    border: 0;
+    background: #222;
+    color: white;
+}
+
+@media (max-width: 650px) {
+    .form-row {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="form-container">
+
+<h1>Registration Form</h1>
+
+<form>
+
+<div class="form-row">
+
+<div class="form-group">
+<label>First Name</label>
+<input type="text" placeholder="Enter first name">
+</div>
+
+<div class="form-group">
+<label>Last Name</label>
+<input type="text" placeholder="Enter last name">
+</div>
+
+</div>
+
+<div class="form-row">
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" placeholder="Enter email">
+</div>
+
+<div class="form-group">
+<label>Phone</label>
+<input type="tel" placeholder="Enter phone">
+</div>
+
+</div>
+
+<div class="form-row">
+
+<div class="form-group">
+<label>Department</label>
+<select>
+<option>Computer Science</option>
+<option>Data Science</option>
+<option>Software Engineering</option>
+</select>
+</div>
+
+</div>
+
+<div class="form-row">
+
+<div class="form-group">
+<label>Message</label>
+<textarea placeholder="Write your message"></textarea>
+</div>
+
+</div>
+
+<button type="submit">Submit</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

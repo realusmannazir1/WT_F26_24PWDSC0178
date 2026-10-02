@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 3 – CSS Positioning</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    min-height: 1600px;
+    color: #222;
+  }
+
+  /* STICKY HEADER */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(90deg, #1a1a2e, #e94560);
+    color: white;
+    padding: 18px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  header h1 { font-size: 1.3rem; letter-spacing: 2px; }
+  header span {
+    background: rgba(255,255,255,0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+
+  .section-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #e94560;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+
+  /* RELATIVE + ABSOLUTE */
+  .relative-box {
+    position: relative;
+    height: 380px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+  .relative-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+  }
+  .relative-box h2 {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    color: #1a1a2e;
+    font-size: 1.5rem;
+  }
+  .relative-box p {
+    position: absolute;
+    top: 70px;
+    left: 30px;
+    color: #555;
+    max-width: 400px;
+    line-height: 1.6;
+  }
+
+  .badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #e94560;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .abs-box {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    color: white;
+    padding: 18px 24px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(233,69,96,0.4);
+  }
+  .abs-box strong { color: #e94560; display: block; margin-bottom: 4px; }
+
+  /* STATIC */
+  .static-box {
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    border-left: 4px solid #e94560;
+  }
+  .static-box h3 { color: #1a1a2e; margin-bottom: 8px; }
+  .static-box p { color: #666; line-height: 1.6; }
+
+  /* SCROLL NOTE */
+  .scroll-note {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #ccc;
+    border-radius: 14px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+    border: 1px solid rgba(233,69,96,0.3);
+  }
+  .scroll-note span { color: #e94560; font-weight: bold; }
+
+  /* FIXED BUTTON */
+  .fixed-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: linear-gradient(135deg, #e94560, #c62a47);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 6px 20px rgba(233,69,96,0.5);
+    cursor: pointer;
+    z-index: 999;
+    border: none;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 600px) {
+    .relative-box { height: 300px; }
+    .abs-box { right: 15px; bottom: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📌 CSS Positioning Demo</h1>
+  <span>Sticky Header — Scroll to test</span>
+</header>
+
+<div class="container">
+
+  <p class="section-title">position: relative + position: absolute</p>
+  <div class="relative-box">
+    <img src="https://picsum.photos/1000/400?random=5" alt="bg">
+    <h2>Relative Container</h2>
+    <p>Children with <strong>position: absolute</strong> are placed relative to this box.</p>
+    <div class="badge">🏷 Absolute Badge</div>
+    <div class="abs-box">
+      <strong>position: absolute</strong>
+      bottom: 25px · right: 25px
+    </div>
+  </div>
+
+  <p class="section-title">position: static (default)</p>
+  <div class="static-box">
+    <h3>Static Element</h3>
+    <p>This element uses the default <strong>position: static</strong>. It flows normally in the document without any offset properties applied.</p>
+  </div>
+
+  <div class="scroll-note">
+    <p>⬇ <span>Scroll down</span> to see the sticky header stay at the top and the fixed button stay at the bottom-right corner.</p>
+  </div>
+
+  <!-- Extra content to allow scrolling -->
+  <div class="static-box" style="margin-bottom:20px;">
+    <h3>More Content</h3>
+    <p>This content exists to make the page scrollable so you can observe the sticky and fixed positioning behaviors in action.</p>
+  </div>
+  <div class="static-box" style="margin-bottom:20px;">
+    <h3>Even More Content</h3>
+    <p>Keep scrolling — the header sticks to the top and the button stays fixed at the bottom right regardless of scroll position.</p>
+  </div>
+
+</div>
+
+<button class="fixed-btn">⬆ Fixed Button</button>
+
+</body>
+</html>

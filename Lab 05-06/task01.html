@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 1 – Display Property Showcase</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    padding: 30px 20px;
+    color: #eee;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #e94560;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .container { max-width: 1000px; margin: auto; }
+
+  .section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #e94560;
+    margin-bottom: 8px;
+  }
+
+  .demo-box {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
+  }
+
+  /* BLOCK */
+  .block-demo {
+    display: block;
+    background: linear-gradient(90deg, #e94560, #c62a47);
+    color: white;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+
+  /* INLINE */
+  .inline-demo span {
+    display: inline;
+    background: #0f3460;
+    color: #e94560;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid #e94560;
+  }
+
+  /* INLINE-BLOCK */
+  .ib-item {
+    display: inline-block;
+    width: 160px;
+    background: linear-gradient(135deg, #0f3460, #16213e);
+    border: 1px solid #e94560;
+    color: #fff;
+    padding: 14px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 5px;
+    font-weight: bold;
+  }
+
+  /* FLEX */
+  .flex-demo {
+    display: flex;
+    gap: 12px;
+  }
+  .flex-demo div {
+    flex: 1;
+    background: linear-gradient(135deg, #e94560, #c62a47);
+    color: white;
+    padding: 18px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  /* GRID */
+  .grid-demo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .grid-demo div {
+    background: linear-gradient(135deg, #0f3460, #1a1a2e);
+    border: 1px solid rgba(233,69,96,0.4);
+    color: #e94560;
+    padding: 18px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  /* NONE */
+  .none-demo {
+    display: none;
+  }
+  .none-note {
+    color: #aaa;
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 700px) {
+    .flex-demo { flex-direction: column; }
+    .grid-demo { grid-template-columns: 1fr; }
+    .ib-item { width: 100%; display: block; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>CSS Display Properties</h1>
+
+  <div class="demo-box">
+    <p class="section-label">display: block</p>
+    <div class="block-demo">I am a Block Element — takes full width</div>
+  </div>
+
+  <div class="demo-box">
+    <p class="section-label">display: inline</p>
+    <p class="inline-demo">
+      Normal text with an <span>Inline Element</span> inside it — flows with text.
+    </p>
+  </div>
+
+  <div class="demo-box">
+    <p class="section-label">display: inline-block</p>
+    <span class="ib-item">Inline-Block 1</span>
+    <span class="ib-item">Inline-Block 2</span>
+    <span class="ib-item">Inline-Block 3</span>
+  </div>
+
+  <div class="demo-box">
+    <p class="section-label">display: flex</p>
+    <div class="flex-demo">
+      <div>Flex Item 1</div>
+      <div>Flex Item 2</div>
+      <div>Flex Item 3</div>
+    </div>
+  </div>
+
+  <div class="demo-box">
+    <p class="section-label">display: grid</p>
+    <div class="grid-demo">
+      <div>Grid 1</div>
+      <div>Grid 2</div>
+      <div>Grid 3</div>
+    </div>
+  </div>
+
+  <div class="demo-box">
+    <p class="section-label">display: none</p>
+    <div class="none-demo">You cannot see this element.</div>
+    <p class="none-note">⚠ The element above exists in HTML but is hidden with display: none.</p>
+  </div>
+</div>
+
+</body>
+</html>

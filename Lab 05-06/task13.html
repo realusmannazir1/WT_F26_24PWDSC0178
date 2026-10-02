@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portfolio</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 7%;
+    background: #222;
+    color: white;
+}
+
+nav div {
+    display: flex;
+    gap: 20px;
+}
+
+.hero {
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+}
+
+.projects {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.project {
+    padding: 30px;
+    background: #eee;
+    min-height: 200px;
+}
+
+.about {
+    padding: 60px 10%;
+    background: #f4f4f4;
+}
+
+@media (max-width: 800px) {
+    .projects {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    nav {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .projects {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<strong>My Portfolio</strong>
+
+<div>
+<a href="#" style="color:white">Home</a>
+<a href="#" style="color:white">Projects</a>
+<a href="#" style="color:white">Contact</a>
+</div>
+
+</nav>
+
+<section class="hero">
+<div>
+<h1>Hi, I'm a Web Developer</h1>
+<p>I build responsive and modern websites.</p>
+</div>
+</section>
+
+<section class="projects">
+
+<div class="project">
+<h2>Project 01</h2>
+<p>School Management System</p>
+</div>
+
+<div class="project">
+<h2>Project 02</h2>
+<p>E-commerce Website</p>
+</div>
+
+<div class="project">
+<h2>Project 03</h2>
+<p>Data Dashboard</p>
+</div>
+
+</section>
+
+<section class="about">
+
+<h2>About Me</h2>
+
+<p>
+I am a computer science student interested in web development,
+data science and modern technologies.
+</p>
+
+</section>
+
+</body>
+</html>
