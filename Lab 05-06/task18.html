@@ -194,18 +194,27 @@
   }
 
   /* ===== PRINT ===== */
+  @page { size: A4 portrait; margin: 16mm; }
   @media print {
-    :root {
-      --bg: white;
-      --bg2: white;
-      --bg3: #f5f5f5;
-      --text: black;
-      --text2: #333;
-      --text3: #666;
-      --border: #ccc;
-      --card-shadow: none;
-    }
-    header { position: static; }
+    *, *::before, *::after { color: #000 !important; background: transparent !important; box-shadow: none !important; text-shadow: none !important; }
+    :root { color-scheme: light; --bg: #fff; --bg2: #fff; --bg3: #f5f5f5; --text: #000; --text2: #222; --text3: #444; --border: #999; --card-shadow: none; }
+    html, body { width: 100%; min-height: 0; margin: 0; padding: 0; background: #fff !important; color: #000 !important; font: 10pt/1.4 Arial, sans-serif; }
+    header { position: static; padding: 0 0 5mm; border: 0; border-bottom: 1px solid #000; }
+    .container { max-width: none; margin: 7mm 0 0; padding: 0; }
+    .page-title { font-size: 20pt; margin-bottom: 2mm; }
+    .page-sub { margin-bottom: 7mm; color: #222 !important; }
+    .card, .pref-card, .status-bar { border: 1px solid #999; border-radius: 0; padding: 5mm; margin-bottom: 5mm; break-inside: avoid; }
+    .card h2, .pref-card h3 { font-size: 12pt; }
+    .card p { color: #222 !important; }
+    .pref-grid { gap: 4mm; margin-bottom: 5mm; }
+    .pref-card { padding: 4mm; }
+    .pref-card .pref-icon { font-size: 16pt; }
+    .pref-card p { color: #222 !important; }
+    .pref-card code { color: #000 !important; border: 1px solid #aaa; }
+    .status-bar { gap: 3mm 7mm; }
+    .status-item span { color: #000 !important; }
+    .status-dot, .card-icon { print-color-adjust: economy; }
+    * { -webkit-print-color-adjust: economy !important; print-color-adjust: economy !important; }
   }
 
   @media (max-width: 600px) {

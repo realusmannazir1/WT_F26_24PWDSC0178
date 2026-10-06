@@ -100,11 +100,24 @@
   }
 
   /* Print */
+  @page { size: A4 portrait; margin: 16mm; }
   @media print {
-    body { background: white; color: black; }
-    .indicator { border-color: black; background: #f5f5f5; }
-    .indicator .screen-label { color: black; }
-    .indicator .screen-label::after { content: "🖨 Print Version"; }
+    *, *::before, *::after { color: #000 !important; background-color: transparent !important; box-shadow: none !important; text-shadow: none !important; }
+    html, body { width: 100%; min-height: 0; margin: 0; padding: 0; background: #fff !important; color: #000 !important; font-size: 10pt; }
+    body { text-align: left; }
+    h1 { font-size: 20pt; margin-bottom: 5mm; }
+    h1 span, .indicator .screen-label { color: #000 !important; }
+    .subtitle, .indicator p, .bp-card p, .note { color: #222 !important; }
+    .subtitle { margin-bottom: 8mm; }
+    .indicator { max-width: none; margin: 0 0 8mm; padding: 8mm; border: 1px solid #000; break-inside: avoid; }
+    .indicator .screen-icon { font-size: 22pt; }
+    .indicator .screen-label::after { content: "Print Version"; }
+    .breakpoints { justify-content: flex-start; gap: 4mm; margin: 0; }
+    .bp-card { min-width: 0; flex: 1 1 28%; padding: 4mm; border: 1px solid #777; break-inside: avoid; }
+    .bp-card .bp-icon { font-size: 16pt; }
+    .note { margin-top: 6mm; }
+    a { color: #000 !important; text-decoration: underline; }
+    * { -webkit-print-color-adjust: economy !important; print-color-adjust: economy !important; }
   }
 </style>
 </head>
